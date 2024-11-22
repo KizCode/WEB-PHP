@@ -10,52 +10,57 @@
 </head>
 
 
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="flex flex-col md:flex-row rounded-lg shadow-lg bg-white w-2/4 ">
-        <!-- Left Section -->
-        <div class="w-full md:w-1/2 bg-white rounded-r-lg px-8 py-12">
-            <div class="text-center mb-8">
-                <h1 class="text-gray-800 font-bold text-3xl inline-block">Hello</h1>
-                <h1 class="text-blue-600 font-bold text-3xl inline-block">Welcome.</h1>
-            </div>
-            <form action="login_proces.php" method="post"  class="space-y-6 text-start">
-                <div class="flex flex-col items-start">
-                    <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
-                    <input name="username" type="name" id="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required />
+<body class="flex items-center justify-center min-h-screen bg-gray-100" style="background-image: url('file/bg/bg1.jpg'); background-size: cover; background-position: center;">
+    <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-4 p-8 bg-white rounded-lg shadow-lg">
+        <!-- Container -->
+        <div class="flex flex-col md:flex-row rounded-lg bg-white">
+            <!-- Left Section -->
+            <div class="w-full md:text-left p-8">
+                <!-- Heading -->
+                <div class="mb-8">
+                    <h1 class="text-center text-gray-800 font-bold text-3xl md:text-4xl">
+                        Hello <span class="text-blue-600">Welcome.</span>
+                    </h1>
                 </div>
-                <div class="flex flex-col items-start">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
-                    <input name="password" type="password" id="password"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="•••••••••" required />
-                </div>
-                <div class="flex justify-start">
-                    <button type="submit"
-                        class="w-full bg-gray-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
-                        Login
-                    </button>
-                </div>
-                <div class="text-center text-gray-800 hover:text-blue-600 font-bold text-lg">
-                    <a href="register.php">Belum Punya Akun? Yuk Daftar!</a>
-                </div>
-            </form>
-        </div>
 
-        <!-- Right Section -->
-        <div class="hidden md:block w-3/4 rounded-r-lg" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-powder-smoke-colorful-background-image_2164096.jpg'); background-size: cover; background-position: center;">>
-            <div class="flex items-center justify-center h-full px-16 py-12">
-                <div class="text-center">
-                    <h1 class="text-white font-bold text-4xl mb-4">Genius Task</h1>
-                    <p class="text-white text-lg mb-6">
-                        This app makes managing your tasks super easy, gets every job done on time, and boosts your
-                        daily productivity.
-                    </p>
-                </div>
+                <!-- Form -->
+                <form action="login_proces.php" method="post" class="space-y-6 text-start">
+                    <!-- Username -->
+                    <div>
+                        <label for="username" class="block mb-3 text-lg font-medium text-gray-900">Username</label>
+                        <input name="username" type="text" id="username"
+                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 p-4"
+                            required />
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block mb-3 text-lg font-medium text-gray-900">Password</label>
+                        <input name="password" type="password" id="password"
+                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 p-4"
+                            placeholder="•••••••••" required />
+                    </div>
+
+                    <!-- Login Button -->
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-gray-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-700 text-lg md:text-xl focus:ring-2 focus:ring-blue-500">
+                            Login
+                        </button>
+                    </div>
+
+                    <!-- Link to Register -->
+                    <div class="text-center">
+                        <a href="register.php"
+                            class="text-gray-800 hover:text-blue-600 font-bold text-lg md:text-xl">
+                            Belum Punya Akun? Yuk Daftar!
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </body>
+
 
 </html>
