@@ -1,0 +1,191 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-image: url("../assets/img/bg1.jpg");
+  background-repeat: no-repeat; /* Hindari pengulangan */
+  background-position: center; /* Letak gambar di tengah */
+  background-size: 150%; /* Zoom gambar */
+
+  color: white;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+/* Navbar */
+.navbar {
+  padding: 15px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+/* Profile Section */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+  border: 2px solid white;
+}
+
+.profile span {
+  font-size: 1rem;
+  color: white;
+}
+
+/* Header */
+header {
+  margin-bottom: 20px; /* Jarak header dari navbar */
+  display: flex;
+}
+
+
+header h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+.deadlines {
+  background-color: #2b2d48;
+  padding: 15px;
+  border-radius: 10px;
+  display: grid;
+  gap: 15px;
+}
+
+.deadlines h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.deadline {
+  display: grid;
+  gap: 10px;
+}
+
+.deadline ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.deadline ul li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.subjects-and-project {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+.subjects {
+  background-color: #2b2d48;
+  padding: 15px;
+  border-radius: 10px;
+  display: grid;
+  gap: 15px;
+}
+
+.subjects h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.subject {
+  background-color: #44476b;
+  height: 100px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.current-project {
+  background-color: #2b2d48;
+  padding: 15px;
+  border-radius: 10px;
+  display: grid;
+  gap: 15px;
+}
+
+.current-project h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.progress-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.progress-bar div {
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 5px;
+  color: white;
+}
+
+.not-finished {
+  background-color: #6c757d;
+}
+
+.finished {
+  background-color: #4caf50;
+}
+
+.late {
+  background-color: #f44336;
+}
+
+.current-project p {
+  margin: 0;
+  text-align: center;
+  font-size: 1rem;
+  color: #ddd;
+}

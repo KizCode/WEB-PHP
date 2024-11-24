@@ -1,29 +1,44 @@
 <?php
 include 'koneksi.php';
 
-// Membuat tabel user jika belum ada
-$sql = "CREATE TABLE IF NOT EXISTS user (
-    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
-)";
+$sql = "CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(11) NOT NULL DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);";
 
 if (mysqli_query($conn, $sql)) {
-    echo "Table user created successfully<br>";
+    echo "Table 'users' created successfully.<br>";
+    header('Location: index.php');
 } else {
-    echo "Error creating user table: " . mysqli_error($conn) . "<br>";
+    echo "Error creating table 'users': " . mysqli_error($conn) . "<br>";
 }
 
-// Menyisipkan data ke tabel user
-$username = "admin";
-$password = password_hash("admin123", PASSWORD_BCRYPT); // Menggunakan hashing untuk keamanan
+$password = password_hash("admin123", PASSWORD_BCRYPT);
 
-$insert_sql = "INSERT INTO user (username, password) VALUES ('$username', '$password')";
+$insert_sql = "INSERT INTO users (fullname, email, username, password, role) VALUES (?, ?, ?, ?, ?)";
 
-if (mysqli_query($conn, $insert_sql)) {
-    echo "New record created successfully<br>";
+if ($stmt = mysqli_prepare($conn, $insert_sql)) {
+    $fullname = "Administrator";
+    $email = "admin@example.com";
+    $username = "admin";
+    $role = "admin";
+
+    mysqli_stmt_bind_param($stmt, "sssss", $fullname, $email, $username, $password, $role);
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "New admin user created successfully.<br>";
+    } else {
+        echo "Error inserting admin user: " . mysqli_error($conn) . "<br>";
+    }
+
+    mysqli_stmt_close($stmt);
 } else {
-    echo "Error inserting record: " . mysqli_error($conn) . "<br>";
+    echo "Error preparing statement: " . mysqli_error($conn) . "<br>";
 }
 
 mysqli_close($conn);

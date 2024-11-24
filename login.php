@@ -5,62 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genius Task Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="style/style.css">
+     <style>
+        body {
+            background-image: cover;
+        }
+     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="card border-dark shadow-lg" style="background-color: rgba(0, 0, 0, 0.40); border-radius: 5%;">
+                    <div class="card-body p-5">
+                        <!-- Heading -->
+                        <div class="mb-4 text-center">
+                            <h1 class="fw-bold text-white">Welcome <span class="text-primary">Back.</span></h1>
+                        </div>
+                        <?php if (isset($_GET['error'])) { ?>
+                            <div class="alert alert-danger">
+                                <?php echo htmlspecialchars($_GET['error']); ?>
+                            </div>
+                        <?php } ?>
+                        <!-- Form -->
+                        <form action="login_process.php" method="post" class="text-white">
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-medium">Email</label>
+                                <input type="text" name="email" id="email" class="form-control form-control-lg" placeholder="Enter your email" required>
+                            </div>
 
-<body class="flex items-center justify-center min-h-screen bg-gray-100" style="background-image: url('file/bg/bg1.jpg'); background-size: cover; background-position: center;">
-    <div class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-4 p-8 bg-white rounded-lg shadow-lg">
-        <!-- Container -->
-        <div class="flex flex-col md:flex-row rounded-lg bg-white">
-            <!-- Left Section -->
-            <div class="w-full md:text-left p-8">
-                <!-- Heading -->
-                <div class="mb-8">
-                    <h1 class="text-center text-gray-800 font-bold text-3xl md:text-4xl">
-                        Hello <span class="text-blue-600">Welcome.</span>
-                    </h1>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-medium">Password</label>
+                                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="•••••••••" required>
+                            </div>
+
+                            <!-- Login Button -->
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            </div>
+
+                            <!-- Link to Register -->
+                            <div class="text-center">
+                                <a href="register.php" class="text-decoration-none text-white fw-bold">Belum Punya Akun? Yuk Daftar!</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <!-- Form -->
-                <form action="login_proces.php" method="post" class="space-y-6 text-start">
-                    <!-- Username -->
-                    <div>
-                        <label for="username" class="block mb-3 text-lg font-medium text-gray-900">Username</label>
-                        <input name="username" type="text" id="username"
-                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 p-4"
-                            required />
-                    </div>
-
-                    <!-- Password -->
-                    <div>
-                        <label for="password" class="block mb-3 text-lg font-medium text-gray-900">Password</label>
-                        <input name="password" type="password" id="password"
-                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 p-4"
-                            placeholder="•••••••••" required />
-                    </div>
-
-                    <!-- Login Button -->
-                    <div>
-                        <button type="submit"
-                            class="w-full bg-gray-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-700 text-lg md:text-xl focus:ring-2 focus:ring-blue-500">
-                            Login
-                        </button>
-                    </div>
-
-                    <!-- Link to Register -->
-                    <div class="text-center">
-                        <a href="register.php"
-                            class="text-gray-800 hover:text-blue-600 font-bold text-lg md:text-xl">
-                            Belum Punya Akun? Yuk Daftar!
-                        </a>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-</body>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
 </html>
