@@ -16,26 +16,17 @@ if (!isset($_SESSION['user'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
+  <!-- Navbar -->
   <div class="container">
-    <!-- Navbar -->
-    <nav class="navbar">
-      <ul>
-        <li><a href="#">Upload</a></li>
-        <li><a href="#">Discuss</a></li>
-        <li><a href="#">Video</a></li>
-      </ul>
-      <!-- Profile Section -->
-      <a href="profile.html" class="profile-link">
-        <div class="profile">
-          <img src="e4f77377b9c1a7cd8258210097d9f633.jpg" alt="Profile Icon">
-          <span><?php echo $_SESSION['user']; ?></span>
-        </div>
-      </a>
-    </nav>
+    <?php include 'utils/navbar.php'; ?>
 
     <!-- Header -->
     <header>
@@ -46,20 +37,37 @@ if (!isset($_SESSION['user'])) {
     <div class="main-content">
       <!-- Deadlines -->
       <section class="deadlines">
-        <h2>DEADLINE TIME!!!</h2>
+        <h2 class="text-uppercase">Deadlin Time</h2>
         <div class="deadline">
-          <h3>Friday, 26 April 2024</h3>
-          <ul>
-            <li><input type="checkbox"> Basis Data: Tugas 2, Assesment 3</li>
-            <li><input type="checkbox"> IUXD: Project kelompok</li>
-            <li><input type="checkbox"> Alpro: PR Praktikum 3</li>
-          </ul>
+          <h2>Friday, 26 April 2024</h2>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label>
+          </div>
         </div>
         <div class="deadline">
-          <h3>Saturday, 27 April 2024</h3>
-          <ul>
-            <li><input type="checkbox"> Matdis: Latihan soal 2</li>
-          </ul>
+          <h2>Saturday, 27 April 2024</h2>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label>
+          </div>
         </div>
       </section>
 
@@ -82,11 +90,11 @@ if (!isset($_SESSION['user'])) {
             <div class="finished">Finished</div>
             <div class="late">Late (2)</div>
           </div>
-          <p>Alpro Udin's</p>
         </section>
       </div>
     </div>
   </div>
+  <?php include 'script.php' ?>
 </body>
 
 </html>

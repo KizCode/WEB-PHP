@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['user']) == false) {
+    header("Location: index.php");
+    $_SESSION['prev_url'] = $_SERVER['HTTP_REFERER'];
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +17,12 @@
     <title>Genius Task Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="style/style.css">
-     <style>
-        body {
+    <style>
+        .container {
+            zoom: 0%;
             background-image: cover;
         }
-     </style>
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 

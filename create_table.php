@@ -7,20 +7,20 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) UNIQUE NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(11) NOT NULL DEFAULT 'user',
+    role CHAR(255) NOT NULL DEFAULT 'user',
+    gambar VARCHAR(255) DEFAULT 'default',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );";
 
 if (mysqli_query($conn, $sql)) {
     echo "Table 'users' created successfully.<br>";
-    header('Location: index.php');
 } else {
     echo "Error creating table 'users': " . mysqli_error($conn) . "<br>";
 }
 
 $password = password_hash("admin123", PASSWORD_BCRYPT);
 
-$insert_sql = "INSERT INTO users (fullname, email, username, password, role) VALUES (?, ?, ?, ?, ?)";
+$insert_sql = "INSERT INTO users (fullname, email, username, password, role, gambar) VALUES (?, ?, ?, ?, ?, ?)";
 
 if ($stmt = mysqli_prepare($conn, $insert_sql)) {
     $fullname = "Administrator";
@@ -28,7 +28,7 @@ if ($stmt = mysqli_prepare($conn, $insert_sql)) {
     $username = "admin";
     $role = "admin";
 
-    mysqli_stmt_bind_param($stmt, "sssss", $fullname, $email, $username, $password, $role);
+    mysqli_stmt_bind_param($stmt, "ssssss", $fullname, $email, $username, $password, $role, $gambar);
 
     if (mysqli_stmt_execute($stmt)) {
         echo "New admin user created successfully.<br>";
