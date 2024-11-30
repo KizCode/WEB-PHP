@@ -8,7 +8,7 @@
     <div class="dropdown profile">
         <button class="btn btn-secondary" type="button" id="droptog" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="image">
-                <span class="mr-10px"><?php echo htmlspecialchars($_SESSION['user']); ?></span>
+                <span class="mr-10px"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
                 <img src="assets/img/default.png" alt="Profile Picture" class="profile-img">
             </div>
         </button>

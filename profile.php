@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php"); // Redirect ke login jika belum login
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,10 +27,10 @@
     <div class="profile-card">
       <!-- Header -->
       <div class="header">
-        <img src="../assets/img/default.png" alt="Avatar" class="avatar">
+        <img src="assets/img/default.png" alt="Avatar" class="avatar">
         <div class="info">
-          <h2>Udin Jamaludin</h2>
-          <p>D3 Sistem Informasi</p>
+          <h2><?php echo $_SESSION['username']; ?></h2>
+              <p>D3 Sistem Informasi</p>
         </div>
         <div class="stats">
           <div>

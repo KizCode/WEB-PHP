@@ -2,7 +2,7 @@
 session_start();
 
 // Periksa apakah pengguna sudah login
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user_id'])) {
   header("Location: login.php"); // Redirect ke login jika belum login
   exit();
 }
@@ -30,7 +30,7 @@ if (!isset($_SESSION['user'])) {
 
     <!-- Header -->
     <header>
-      <h1 class="text-3xl font-bold">Hello, <?php echo $_SESSION['user']; ?></h1>
+      <h1 class="text-3xl font-bold">Hello, <?php echo $_SESSION['username']; ?></h1>
     </header>
 
     <!-- Main Content -->
