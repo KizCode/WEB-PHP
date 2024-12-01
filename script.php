@@ -7,19 +7,31 @@
 
 
     toggleButton.addEventListener('click', function(event) {
- 
+
         if (toggleItem.style.display === 'none') {
-            toggleItem.style.display = 'block'; 
+            toggleItem.style.display = 'block';
         } else {
-            toggleItem.style.display = 'none'; 
+            toggleItem.style.display = 'none';
         }
 
         event.stopPropagation();
     });
 
-    
+    toggleItem.addEventListener('click', function(event) {
+
+        if (toggleItem.style.display === 'none') {
+            toggleItem.style.display = 'block';
+        } else {
+            toggleItem.style.display = 'none';
+        }
+
+        event.stopPropagation();
+    });
+
+
+
     document.addEventListener('click', function(event) {
-        
+
         if (!toggleButton.contains(event.target) && !toggleItem.contains(event.target)) {
             toggleItem.style.display = 'none'; // 
         }
