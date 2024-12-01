@@ -1,8 +1,8 @@
 /* Global Styles */
 body {
   margin: 0;
-  font-family: "Arial", sans-serif;
-  background-image: url("../assets/img/bg1.jpg") no-repeat center center/cover;
+  font-family: 'Arial', sans-serif;
+  background: url('../assets/img/bg1.jpg') no-repeat center center/cover;
   color: #fff;
 }
 
@@ -15,7 +15,7 @@ body {
 
 .profile-card {
   width: 800px; /* Diperbesar */
-  background-color: #242d39; /* Warna diganti */
+  background-color: #242D39; /* Warna diganti */
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
@@ -26,7 +26,7 @@ body {
   display: flex;
   align-items: center;
   padding: 25px; /* Diperbesar sedikit */
-  background-color: #1f2630;
+  background-color: #1F2630;
 }
 
 .avatar {
@@ -59,27 +59,28 @@ body {
   text-align: center;
 }
 
-.stats div {
-  margin: 0; /* Menghapus margin bawah */
+  .stats div {
+      margin: 0; /* Menghapus margin bawah */
 }
 
-.stats p {
-  margin: 0;
-  font-size: 12px;
-  color: #ccc;
+  .stats p {
+      margin: 0;
+      font-size: 12px;
+      color: #ccc;
 }
 
-.stats h3 {
-  margin: 0;
-  font-size: 18px;
+  .stats h3 {
+      margin: 0;
+      font-size: 18px;
 }
+
 
 .details {
   display: flex;
   justify-content: space-around; /* Memberi jarak antar item */
   align-items: center;
   padding: 25px; /* Diperbesar */
-  background-color: #242d39;
+  background-color: #242D39;
   border-top: 1px solid #444;
   gap: 15px; /* Tambahkan jarak antar elemen */
 }
@@ -101,7 +102,7 @@ body {
 }
 
 .edit-btn {
-  background-color: #f47c7c;
+  background-color: #F47C7C;
   color: #fff;
   border: none;
   border-radius: 5px; /* Membuat tombol lebih besar */
@@ -111,13 +112,14 @@ body {
 }
 
 .edit-btn:hover {
-  background-color: #ff9292;
+  background-color: #FF9292;
 }
+
 
 /* Status Section */
 .status {
   padding: 25px; /* Diperbesar */
-  background-color: #1f2630;
+  background-color: #1F2630;
   border-top: 1px solid #444;
 }
 

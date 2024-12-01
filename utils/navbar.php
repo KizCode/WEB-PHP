@@ -1,19 +1,19 @@
 <nav class="navbar navbar-dark">
     <ul class="text-uppercase">
         <li><a href="#">Upload</a></li>
-        <li><a href="#">Discuss</a></li>
+        <li><a href="chat.php">Discuss</a></li>
         <li><a href="#">Video</a></li>
     </ul>
     <!-- Profile Section -->
     <div class="dropdown profile">
         <button class="btn btn-secondary" type="button" id="droptog" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="image">
-                <span class="mr-10px"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                <span class="mr-10px"><?php echo htmlspecialchars($user['username']); ?></span>
                 <img src="assets/img/default.png" alt="Profile Picture" class="profile-img">
             </div>
         </button>
         <ul class="dropdown-menu" aria-labelledby="navtog" id="dropitem" data-bs-popper="none" style="display: none;">
-            <li><a class="dropdown-item" href="profile.php">
+            <li><a class="dropdown-item" href="view/profile/index.php">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person mb-1" viewBox="0 0 16 16">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                     </svg>

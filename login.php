@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) == false) {
+if (!isset($_SESSION['user']) == false ) {
     header("Location: index.php");
-    $_SESSION['prev_url'] = $_SERVER['HTTP_REFERER'];
+    exit;
 }
 ?>
 
@@ -19,8 +19,8 @@ if (!isset($_SESSION['user']) == false) {
     <link rel="stylesheet" href="style/style.css">
     <style>
         .container {
-            zoom: 0%;
             background-image: cover;
+            zoom: 100%;
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

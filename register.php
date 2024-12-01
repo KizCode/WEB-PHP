@@ -14,10 +14,17 @@ if (!isset($_SESSION['user']) == false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genius Task Register</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="style/style.css">
+    <style>
+        .container {
+            background-image: cover;
+            zoom: 100%;
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light" style="background-image: url('file/bg/bg1.jpg'); background-size: cover; background-position: center;">
+<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
     <div class=" container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 ">
@@ -32,8 +39,8 @@ if (!isset($_SESSION['user']) == false) {
                         <form action="register_process.php" method="post">
                             <!-- Full Name -->
                             <div class="mb-3">
-                                <label for="fullname" class="form-label">Full Name</label>
-                                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter your full name" required>
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
                             </div>
 
                             <!-- Email -->
@@ -67,7 +74,7 @@ if (!isset($_SESSION['user']) == false) {
 
                             <!-- Link to Login -->
                             <div class="text-center mt-3">
-                                <a href="login.php" class="text-decoration-none">Sudah Punya Akun? Login Disini!</a>
+                                <a href="login.php" class="text-decoration-none fw-bold">Sudah Punya Akun? Login Disini!</a>
                             </div>
                         </form>
                     </div>
@@ -77,7 +84,7 @@ if (!isset($_SESSION['user']) == false) {
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <?php include '../WEB-PHP/script.php'; ?>
 </body>
 
 </html>

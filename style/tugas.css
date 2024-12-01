@@ -1,0 +1,89 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: url('../assets/img/bg1.jpg');
+  background-repeat: repeat; /* Hindari pengulangan */
+  background-position: center; /* Letak gambar di tengah */
+  background-size: 150%; /* Zoom gambar */
+  color: white;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.add-task-form,
+.task-list {
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  grid-template-columns: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+input[type="text"],
+input[type="time"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.task-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-list li {
+  background-color: white;
+  color: #19245c;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-list button {
+  background-color: #e74c3c;
+  padding: 5px 10px;
+  font-size: 14px;
+}
