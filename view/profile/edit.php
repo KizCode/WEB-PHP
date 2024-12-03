@@ -2,47 +2,82 @@
 session_start();
 
 include('../../koneksi.php');
+
+// Periksa apakah pengguna telah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../login.php");
+    exit;
+}
+
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM users WHERE id = $user_id";
-$result = mysqli_query($conn, $query);
-$user = mysqli_fetch_assoc($result);
+
+// Ambil data pengguna dari database
+$query = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 
 // Jika form disubmit, proses data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ambil data yang diinputkan
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $file = $_POST['file'];
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $username = htmlspecialchars(trim($_POST['username']));
 
-    // Proses upload foto jika ada
-    if ($_FILES['profile-picture']['name'] != '') {
-        // Tentukan folder tempat menyimpan foto
-        $target_dir = "../../assets/upload/";
-        $target_file = $target_dir . basename($_FILES["profile-picture"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        // Cek apakah file adalah gambar
-        if (getimagesize($_FILES["profile-picture"]["tmp_name"]) !== false) {
-            // Pindahkan file ke folder upload
-            if (move_uploaded_file($_FILES["profile-picture"]["tmp_name"], $target_file)) {
-                echo "File " . basename($_FILES["profile-picture"]["name"]) . " telah diunggah.";
-                header("location: ../profile/index.php");
-            } else {
-                echo "Maaf, terjadi kesalahan saat mengunggah file.";
-            }
-        } else {
-            echo "File yang diunggah bukan gambar.";
-        }
+    // Validasi input
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Email tidak valid.";
+        exit;
     }
 
-    // Update data pengguna di database
-    $query_update = "UPDATE users SET name = '$name', email = '$email', username = '$username' WHERE id = $user_id";
-    if (mysqli_query($conn, $query_update)) {
-        echo "Profil berhasil diperbarui.";
-        header("location: ../profile/index.php");
+    // Proses upload foto jika ada
+    if (!empty($_FILES['profile-picture']['name'])) {
+        $target_dir = "../../assets/upload/";
+        $file_name = uniqid() . "-" . basename($_FILES["profile-picture"]["name"]);
+        $target_file = $target_dir . $file_name;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Validasi file gambar
+        $check = getimagesize($_FILES["profile-picture"]["tmp_name"]);
+        if ($check === false) {
+            echo "File yang diunggah bukan gambar.";
+            exit;
+        }
+
+        if ($_FILES["profile-picture"]["size"] > 2000000) { // Maksimal 2MB
+            echo "Ukuran file terlalu besar.";
+            exit;
+        }
+
+        if (!in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
+            echo "Hanya file JPG, JPEG, PNG, dan GIF yang diizinkan.";
+            exit;
+        }
+
+        if (!move_uploaded_file($_FILES["profile-picture"]["tmp_name"], $target_file)) {
+            echo "Terjadi kesalahan saat mengunggah file.";
+            exit;
+        }
+
+        // Simpan nama file baru ke database
+        $query_update = "UPDATE users SET name = ?, email = ?, username = ?, gambar = ? WHERE id = ?";
+        $stmt = $conn->prepare($query_update);
+        $stmt->bind_param("ssssi", $name, $email, $username, $file_name, $user_id);
     } else {
-        echo "Terjadi kesalahan: " . mysqli_error($conn);
+        // Update tanpa mengubah foto profil
+        $query_update = "UPDATE users SET name = ?, email = ?, username = ? WHERE id = ?";
+        $stmt = $conn->prepare($query_update);
+        $stmt->bind_param("sssi", $name, $email, $username, $user_id);
+    }
+
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Profil berhasil diperbarui.";
+        header("Location: ../profile/index.php");
+        exit;
+    } else {
+        echo "Terjadi kesalahan: " . $stmt->error;
+        exit;
     }
 }
 ?>
@@ -63,24 +98,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="text-center mb-4">Edit Profil</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="../profile/edit.php" method="POST" enctype="multipart/form-data">
+                <form action="edit.php" method="POST" enctype="multipart/form-data">
                     <!-- Nama Lengkap -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $user['name']; ?>" required>
+                        <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']); ?>" required>
                     </div>
                     <!-- Email -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo $user['email']; ?>" required>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']); ?>" required>
                     </div>
-
                     <!-- Username -->
                     <div class="mb-3">
-                        <label for="phone" class="form-label">Username</label>
-                        <input type="tel" class="form-control" id="phone" name="username" value="<?php echo $user['username']; ?>" required>
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
                     </div>
-
                     <!-- Foto Profil -->
                     <div class="mb-3">
                         <label for="profile-picture" class="form-label">Foto Profil</label>
