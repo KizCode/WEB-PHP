@@ -77,6 +77,7 @@ $user = mysqli_fetch_assoc($result);
       <!-- Tombol Kembali ke Halaman Awal -->
       <div class="text-center mt-4 mb-4">
         <a href="../../index.php" class="btn btn-secondary">Kembali ke Halaman Awal</a>
+        <a href="../../delete.php" class="btn btn-secondary">delete account</a></a>
       </div>
     </div>
   </div>
