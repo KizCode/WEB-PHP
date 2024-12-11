@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) == false) {
+if (!isset($_SESSION['users']) == false) {
     header("Location: index.php");
     $_SESSION['prev_url'] = $_SERVER['HTTP_REFERER'];
 }

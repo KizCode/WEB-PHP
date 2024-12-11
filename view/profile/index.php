@@ -32,7 +32,7 @@ $user = mysqli_fetch_assoc($result);
     <div class="profile-card">
       <!-- Header -->
       <div class="header">
-        <img src="../../assets/img/default.png" alt="Avatar" class="avatar">
+        <img src="../../assets/upload/<?php echo $user['gambar'] ?>" alt="Avatar" class="avatar">
         <div class="info">
           <h2><?php echo $user['username']; ?></h2>
           <p>D3 Sistem Informasi</p>

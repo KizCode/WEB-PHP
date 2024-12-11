@@ -1,44 +1,6 @@
+<!-- Ambil semua tugas -->
 <?php
-include '../WEB-PHP/koneksi.php';
-
-// Tambah tugas
-if (isset($_POST['create'])) {
-    $name = $_POST['name'];
-    $reminder_time = $_POST['reminder_time'];
-
-    $sql = "INSERT INTO tasks (name, reminder_time) VALUES ('$name', '$reminder_time')";
-    $conn->query($sql);
-    header("Location: tugas.php");
-}
-
-// Hapus tugas
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $sql = "DELETE FROM tasks WHERE id=$id";
-    $conn->query($sql);
-    header("Location: tugas.php");
-}
-
-// Ambil data untuk edit
-$taskToEdit = null;
-if (isset($_GET['edit'])) {
-    $id = $_GET['edit'];
-    $result = $conn->query("SELECT * FROM tasks WHERE id=$id");
-    $taskToEdit = $result->fetch_assoc();
-}
-
-// Update tugas
-if (isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $name = $_POST['name'];
-    $reminder_time = $_POST['reminder_time'];
-
-    $sql = "UPDATE tasks SET name='$name', reminder_time='$reminder_time' WHERE id=$id";
-    $conn->query($sql);
-    header("Location: tugas.php");
-}
-
-// Ambil semua tugas
+include('../../koneksi.php');
 $tasks = $conn->query("SELECT * FROM tasks");
 ?>
 
@@ -53,7 +15,6 @@ $tasks = $conn->query("SELECT * FROM tasks");
 <body>
 <div class="container">
     <h1>Task Reminder</h1>
-
 
     <!-- Daftar Tugas -->
     <div class="task-list">

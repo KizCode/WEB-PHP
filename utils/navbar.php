@@ -9,7 +9,7 @@
         <button class="btn btn-secondary" type="button" id="droptog" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="image">
                 <span class="mr-10px"><?php echo htmlspecialchars($user['username']); ?></span>
-                <img src="assets/img/default.png" alt="Profile Picture" class="profile-img">
+                <img src="../../WEB-PHP/assets/upload/<?= $user['gambar'] ?>" alt="Profile Picture" class="profile-img">
             </div>
         </button>
         <ul class="dropdown-menu" aria-labelledby="navtog" id="dropitem" data-bs-popper="none" style="display: none;">
