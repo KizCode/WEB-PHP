@@ -5,7 +5,7 @@ body {
   background-image: url("../assets/img/bg1.jpg");
   background-repeat: repeat; /* Hindari pengulangan */
   background-position: center; /* Letak gambar di tengah */
-  background-size: 150%; /* Zoom gambar */
+  background-size: 100%; /* Zoom gambar */
   color: white;
 }
 
@@ -24,7 +24,7 @@ body {
 
 /* Navbar */
 .navbar {
-  padding: 20px 0px; /* Optional: Adjust padding for top/bottom and left/right */
+  padding: 10px 0px; /* Optional: Adjust padding for top/bottom and left/right */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +36,7 @@ body {
 .navbar ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 10px;
   margin: 0;
   padding: 0;
 }

@@ -1,146 +1,105 @@
-<?php
-session_start();
-// Periksa apakah pengguna sudah login
-if (!isset($_SESSION['user_id'])) {
-  header("Location: login.php"); // Redirect ke login jika belum login
-  exit();
-}
-
-// Ambil data user dari database
-include('../WEB-PHP/koneksi.php');
-$user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM users WHERE id = $user_id";
-$result = mysqli_query($conn, $query);
-$user = mysqli_fetch_assoc($result);
-
-// Menulis query untuk mengambil data tugas
-$sql = "SELECT * FROM tasks";
-
-// Menjalankan query
-$result = $conn->query($sql);
-
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            color: white;
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 0 0 20px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin: 0 0 40px;
+            max-width: 600px;
+        }
+
+        .features img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
-
 <body>
-  <!-- Navbar -->
-  <div class="container">
-    <?php include 'utils/navbar.php'; ?>
-
-    <!-- Header -->
-    <header>
-      <h1 class="text-3xl font-bold">Hello, <?php echo $user['username']; ?></h1>
+    <header class="bg-light shadow-sm sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+            <a class="navbar-brand text-primary fw-bold" href="#">My Landing Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- Deadlines -->
-      <section class="deadlines">
+    <section class="hero">
+        <h1>Welcome to Our Service</h1>
+        <p>Discover amazing features and start your journey with us today. Designed to help you succeed in your goals.</p>
+        <a href="#features" class="btn btn-primary btn-lg">Get Started</a>
+    </section>
 
-        <h2 class="text-uppercase">Deadlin Time</h2>
-        <div class="deadline">
-          <h2>Friday, 26 April 2024</h2>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
+    <section class="py-5" id="features">
+        <div class="container text-center">
+            <h2 class="mb-4">Our Teams</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/100" class="card-img-top mx-auto mt-3" alt="Feature 1">
+                        <div class="card-body">
+                            <p class="card-text">BERLI FERIZ ADAM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/100" class="card-img-top mx-auto mt-3" alt="Feature 2">
+                        <div class="card-body">
+                            <p class="card-text">YUSTIKA DEWI AMELIA</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/100" class="card-img-top mx-auto mt-3" alt="Feature 3">
+                        <div class="card-body">
+                            <p class="card-text">REZFA ALHAZ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="deadline">
-          <h2>Saturday, 27 April 2024</h2>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4" id="contact">
+        <div class="container text-center">
+            <p>&copy; 2024 My Landing Page. All rights reserved.</p>
         </div>
-      </section>
-
-      <!-- Subjects and Current Project -->
-      <div class="subjects-and-project">
-        <section class="subjects">
-          <h2>My Subject</h2>
-          <div class="subject-grid">
-            <div class="subject">Matdis</div>
-            <div class="subject">Basis Data</div>
-            <div class="subject">Alpro</div>
-            <div class="subject">IUXD</div>
-          </div>
-        </section>
-
-
-        <section class="current-project">
-          <h2>Current Project</h2>
-          <div class="progress-bar" id="bar">
-            <button class="not-finished">Not Finished Yet</button>
-            <button class="finished">Finished</button>
-            <button class="late">Late (2)</button>
-          </div>
-          <div class="tugas">
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nama Tugas</th>
-                  <th>Deskripsi</th>
-                  <th>Waktu Pengingat</th>
-                  <th>Tanggal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                // Mengecek apakah ada hasil
-                if ($result->num_rows > 0) {
-                  // Output data untuk setiap baris
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["id"] . "</td>";
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["description"] . "</td>";
-                    echo "<td>" . $row["reminder_time"] . "</td>";
-
-                    echo "</tr>";
-                  }
-                } else {
-                  echo "<tr><td colspan='5'>Tidak ada data</td></tr>";
-                }
-                ?>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-      </div>
-    </div>
-  </div>
-  <?php include 'script.php' ?>
+    </footer>
 </body>
-
 </html>

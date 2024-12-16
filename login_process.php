@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
     if (password_verify($password, $data['password'])) {
         $_SESSION['user_id'] = $data['id']; // Simpan ID pengguna ke sesi
         $_SESSION['username'] = $data['username']; // Simpan username ke sesi
-        header("Location: index.php");
+        header("Location: ../WEB-PHP/view/dasdboard/home.php");
     } else {
         header("Location: login.php?error=Password atau Email Salah");
     }
