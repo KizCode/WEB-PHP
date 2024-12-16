@@ -31,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $_SESSION['error'] = "Email atau Username sudah terdaftar!";
-        header('Location: register.php');
+        header("Location: register.php?error=Email sudah terdaftar!");
         exit;
     }
 

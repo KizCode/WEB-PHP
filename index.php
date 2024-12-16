@@ -13,6 +13,12 @@ $query = "SELECT * FROM users WHERE id = $user_id";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
+// Menulis query untuk mengambil data tugas
+$sql = "SELECT * FROM tasks";
+
+// Menjalankan query
+$result = $conn->query($sql);
+
 
 ?>
 
@@ -42,7 +48,7 @@ $user = mysqli_fetch_assoc($result);
     <div class="main-content">
       <!-- Deadlines -->
       <section class="deadlines">
-        
+
         <h2 class="text-uppercase">Deadlin Time</h2>
         <div class="deadline">
           <h2>Friday, 26 April 2024</h2>
@@ -89,16 +95,48 @@ $user = mysqli_fetch_assoc($result);
           </div>
         </section>
 
-        
+
         <section class="current-project">
           <h2>Current Project</h2>
-          <a class="btn btn-primary" href="../WEB-PHP/tugas.php">Tambah Tugas</a>
-          <div class="progress-bar">
-            <div class="not-finished">Not Finished Yet</div>
-            <div class="finished">Finished</div>
-            <div class="late">Late (2)</div>
+          <div class="progress-bar" id="bar">
+            <button class="not-finished">Not Finished Yet</button>
+            <button class="finished">Finished</button>
+            <button class="late">Late (2)</button>
+          </div>
+          <div class="tugas">
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nama Tugas</th>
+                  <th>Deskripsi</th>
+                  <th>Waktu Pengingat</th>
+                  <th>Tanggal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                // Mengecek apakah ada hasil
+                if ($result->num_rows > 0) {
+                  // Output data untuk setiap baris
+                  while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["id"] . "</td>";
+                    echo "<td>" . $row["name"] . "</td>";
+                    echo "<td>" . $row["description"] . "</td>";
+                    echo "<td>" . $row["reminder_time"] . "</td>";
+
+                    echo "</tr>";
+                  }
+                } else {
+                  echo "<tr><td colspan='5'>Tidak ada data</td></tr>";
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
         </section>
+
       </div>
     </div>
   </div>

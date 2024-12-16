@@ -32,6 +32,11 @@ if (!isset($_SESSION['users']) == false) {
                     <div class=" card-body m-2">
                         <!-- Heading -->
                         <div class="text-center mb-4">
+                            <?php if (isset($_GET['error'])) { ?>
+                                <div class="alert alert-danger">
+                                    <?php echo htmlspecialchars($_GET['error']); ?>
+                                </div>
+                            <?php } ?>
                             <h1 class="fw-bold">Hello <span class="text-primary">Register Now.</span></h1>
                         </div>
 

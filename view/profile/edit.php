@@ -95,33 +95,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Edit Profil</h1>
+        <h1 class="text-center mb-4">Halaman Profil</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="edit.php" method="POST" enctype="multipart/form-data">
-                    <!-- Nama Lengkap -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']); ?>" required>
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4">Formulir Edit Profil</h5>
+                        <form action="edit.php" method="POST" enctype="multipart/form-data">
+                            <!-- Nama Lengkap -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']); ?>" required>
+                            </div>
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']); ?>" required>
+                            </div>
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
+                            </div>
+                            <!-- Foto Profil -->
+                            <div class="mb-3">
+                                <label for="profile-picture" class="form-label">Foto Profil</label>
+                                <input type="file" class="form-control" id="profile-picture" name="profile-picture" accept="image/*">
+                            </div>
+                            <!-- Tombol Submit -->
+                            <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
+                        </form>
                     </div>
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']); ?>" required>
-                    </div>
-                    <!-- Username -->
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
-                    </div>
-                    <!-- Foto Profil -->
-                    <div class="mb-3">
-                        <label for="profile-picture" class="form-label">Foto Profil</label>
-                        <input type="file" class="form-control" id="profile-picture" name="profile-picture" accept="image/*">
-                    </div>
-                    <!-- Tombol Submit -->
-                    <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -130,3 +135,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+

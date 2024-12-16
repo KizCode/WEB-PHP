@@ -18,10 +18,10 @@ if ($result->num_rows > 0) {
         $_SESSION['username'] = $data['username']; // Simpan username ke sesi
         header("Location: index.php");
     } else {
-        header("Location: login.php?error=Password Salah");
+        header("Location: login.php?error=Password atau Email Salah");
     }
 } else {
-    header("Location: login.php?error=Email Tidak Ditemukan");
+    header("Location: login.php?error=Password atau Email Salah");
 }
 
 $stmt->close();
