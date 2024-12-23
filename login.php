@@ -19,14 +19,13 @@ if (!isset($_SESSION['user']) == false ) {
     <link rel="stylesheet" href="style/style.css">
     <style>
         .container {
-            background-image: cover;
             zoom: 100%;
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+<body class="d-flex align-items-center justify-content-center min-vh-100 bg-dark">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-10">

@@ -2,7 +2,6 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-image: url("../assets/img/bg1.jpg");
   background-repeat: repeat; /* Hindari pengulangan */
   background-position: center; /* Letak gambar di tengah */
   background-size: 100%; /* Zoom gambar */
@@ -20,8 +19,6 @@ body {
   align-items: center;
 }
 
-/* #Yustika */
-
 /* Navbar */
 .navbar {
   padding: 10px 0px; /* Optional: Adjust padding for top/bottom and left/right */
@@ -29,7 +26,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%; /* This ensures the navbar takes the full width of the screen */
-  margin: 0px; /* Removes any default margins */
+  margin: 10px; /* Removes any default margins */
   box-sizing: border-box; /* Ensures padding doesn't affect the width */
 }
 
@@ -47,7 +44,7 @@ body {
 
 .navbar ul li a {
   text-decoration: none;
-  color: white;
+  color: black;
   font-size: 1rem;
 }
 
@@ -255,48 +252,34 @@ header h1 {
   font-size: 1.2rem;
 }
 
-/* Grid layout untuk 3 kolom */
-.current-project {
-  text-align: center;
-  margin-top: 50px;
-}
-
 .progress-bar {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Membagi menjadi 3 kolom */
-  gap: 10px; /* Jarak antar kolom */
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto; /* Pusatkan grid */
-  height: 60px;
-  background-color: #e0e0e0;
-  border-radius: 20px;
-  overflow: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
-.progress-bar button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+.progress-bar div {
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 5px;
   color: white;
-  font-weight: bold;
-  padding: 0 10px;
-  transition: width 1s ease;
-  cursor: pointer;
 }
 
 .not-finished {
-  background-color: #f44336;
-  width: 100%;
+  background-color: #6c757d;
 }
 
 .finished {
   background-color: #4caf50;
-  width: 100%;
 }
 
 .late {
-  background-color: #ff9800;
-  width: 100%;
+  background-color: #f44336;
+}
+
+.current-project p {
+  margin: 0;
+  text-align: center;
+  font-size: 1rem;
+  color: #ddd;
 }

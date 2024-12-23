@@ -89,50 +89,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../style/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body{
+            zoom: 150%;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Halaman Profil</h1>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Formulir Edit Profil</h5>
-                        <form action="edit.php" method="POST" enctype="multipart/form-data">
-                            <!-- Nama Lengkap -->
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']); ?>" required>
-                            </div>
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']); ?>" required>
-                            </div>
-                            <!-- Username -->
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
-                            </div>
-                            <!-- Foto Profil -->
-                            <div class="mb-3">
-                                <label for="profile-picture" class="form-label">Foto Profil</label>
-                                <input type="file" class="form-control" id="profile-picture" name="profile-picture" accept="image/*">
-                            </div>
-                            <!-- Tombol Submit -->
-                            <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
-                        </form>
+<body class="bg-gray-900 text-white">
+
+    <div class="container mx-auto mt-10 px-4">
+        <h1 class="text-center text-3xl font-bold text-white mb-6">Halaman Profil</h1>
+        <div class="flex justify-center">
+            <div class="w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h5 class="text-center text-2xl font-semibold mb-4">Edit Profil</h5>
+                <form action="edit.php" method="POST" enctype="multipart/form-data">
+                    <!-- Nama Lengkap -->
+                    <div class="mb-4">
+                        <label for="name" class="block text-lg">Nama Lengkap</label>
+                        <input type="text" class="w-full px-4 py-2 mt-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" id="name" name="name" value="<?= htmlspecialchars($user['name']); ?>" required>
                     </div>
-                </div>
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label for="email" class="block text-lg">Email</label>
+                        <input type="email" class="w-full px-4 py-2 mt-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" id="email" name="email" value="<?= htmlspecialchars($user['email']); ?>" required>
+                    </div>
+                    <!-- Username -->
+                    <div class="mb-4">
+                        <label for="username" class="block text-lg">Username</label>
+                        <input type="text" class="w-full px-4 py-2 mt-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" id="username" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
+                    </div>
+                    <!-- Foto Profil -->
+                    <div class="mb-4">
+                        <label for="profile-picture" class="block text-lg">Foto Profil</label>
+                        <input type="file" class="w-full px-4 py-2 mt-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" id="profile-picture" name="profile-picture" accept="image/*">
+                    </div>
+                    <!-- Tombol Submit -->
+                    <button type="submit" class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Simpan Perubahan</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+
 
