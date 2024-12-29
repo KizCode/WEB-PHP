@@ -26,11 +26,9 @@ $user = mysqli_fetch_assoc($result);
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-900 text-white font-poppins h-screen flex items-center justify-center">
-
+<body class="scale-50 sm:scale-75 lg:scale-100 bg-gray-900 text-white font-poppins h-screen flex items-center justify-center">
   <!-- Card Container -->
-  <div class="bg-gray-800 w-full max-w-3xl rounded-lg p-6 shadow-lg">
-
+  <div class="bg-gray-800 w-full max-w-4xl rounded-lg p-6 shadow-lg">
     <!-- Header -->
     <div class="flex items-center gap-6">
       <img src="../../assets/upload/<?= !empty($user['gambar']) ? $user['gambar'] : 'default.jpg' ?>" alt="Avatar" class="w-24 h-24 rounded-full border-2 border-white">
@@ -113,8 +111,3 @@ $user = mysqli_fetch_assoc($result);
 </body>
 
 </html>
-
-
-
-
-

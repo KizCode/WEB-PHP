@@ -1,12 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) == false ) {
+if (!isset($_SESSION['user']) == false) {
     header("Location: index.php");
     exit;
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,63 +13,59 @@ if (!isset($_SESSION['user']) == false ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genius Task Login</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="style/style.css">
-    <style>
-        .container {
-            zoom: 100%;
-        }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="d-flex align-items-center justify-content-center min-vh-100 bg-dark">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 col-sm-10">
-                <div class="card border-dark shadow-lg" style="background-color: rgba(0, 0, 0, 0.40); border-radius: 5%;">
-                    <div class="card-body p-5">
-                        <!-- Heading -->
-                        <div class="mb-4 text-center">
-                            <h1 class="fw-bold text-white">Welcome <span class="text-primary">Back.</span></h1>
-                        </div>
-                        <?php if (isset($_GET['error'])) { ?>
-                            <div class="alert alert-danger">
-                                <?php echo htmlspecialchars($_GET['error']); ?>
-                            </div>
-                        <?php } ?>
-                        <!-- Form -->
-                        <form action="login_process.php" method="post" class="text-white">
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label fw-medium">Email</label>
-                                <input type="text" name="email" id="email" class="form-control form-control-lg" placeholder="Enter your email" required>
-                            </div>
-
-                            <!-- Password -->
-                            <div class="mb-3">
-                                <label for="password" class="form-label fw-medium">Password</label>
-                                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="•••••••••" required>
-                            </div>
-
-                            <!-- Login Button -->
-                            <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
-                            </div>
-
-                            <!-- Link to Register -->
-                            <div class="text-center">
-                                <a href="register.php" class="text-decoration-none text-white fw-bold">Belum Punya Akun? Yuk Daftar!</a>
-                            </div>
-                        </form>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="container mx-auto">
+        <div class="flex justify-center">
+            <div class="w-full scale-75 md:scale-100 lg:scale-125 max-w-lg bg-gray-800 rounded-lg shadow-lg">
+                <div class="p-6">
+                    <!-- Heading -->
+                    <div class="mb-4 text-center">
+                        <h1 class="text-2xl font-bold text-white">
+                            Welcome <span class="text-blue-500">Back</span>
+                        </h1>
                     </div>
+                    
+                    <?php if (isset($_GET['error'])) { ?>
+                        <div class="mb-4 text-sm text-red-500 bg-red-100 border border-red-400 rounded-lg p-3">
+                            <?php echo htmlspecialchars($_GET['error']); ?>
+                        </div>
+                    <?php } ?>
+                    
+                    <!-- Form -->
+                    <form action="login_process.php" method="post" class="text-white">
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium">Email</label>
+                            <input type="text" name="email" id="email" class="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium">Password</label>
+                            <input type="password" name="password" id="password" class="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
+                        </div>
+
+                        <!-- Login Button -->
+                        <div class="mb-4">
+                            <button type="submit" class="w-full px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500">Login</button>
+                        </div>
+
+                        <!-- Link to Register -->
+                        <div class="text-center mb-4">
+                            <a href="register.php" class="text-white text-sm hover:text-blue-500 font-bold">Lupa Password?</a>
+                        </div>
+                        <hr>
+                        <div class="text-center mt-4">
+                            <a href="register.php" class="text-white text-sm hover:text-blue-500 font-bold">Belum Punya Akun? Yuk Daftar!</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

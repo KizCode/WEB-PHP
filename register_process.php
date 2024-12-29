@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $check_query = "SELECT * FROM users WHERE email = ? OR username = ?";
+    $check_query = "SELECT * FROM user WHERE email = ? OR username = ?";
     $stmt = $conn->prepare($check_query);
     $stmt->bind_param("ss", $email, $username);
     $stmt->execute();
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $insert_query = "INSERT INTO users (name, email, username, password) VALUES (?, ?, ?, ?)";
+    $insert_query = "INSERT INTO user (name, email, username, password) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($insert_query);
     $stmt->bind_param("ssss", $name, $email, $username, $hashed_password);
 

@@ -90,19 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profil</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body{
-            zoom: 150%;
-        }
-    </style>
 </head>
 
-<body class="bg-gray-900 text-white">
-
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
     <div class="container mx-auto mt-10 px-4">
-        <h1 class="text-center text-3xl font-bold text-white mb-6">Halaman Profil</h1>
-        <div class="flex justify-center">
-            <div class="w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-center scale-75 md:scale-100 lg:scale-125">
+            <div class="w-full text-white max-w-xl bg-gray-800 p-6 rounded-lg shadow-lg">
                 <h5 class="text-center text-2xl font-semibold mb-4">Edit Profil</h5>
                 <form action="edit.php" method="POST" enctype="multipart/form-data">
                     <!-- Nama Lengkap -->

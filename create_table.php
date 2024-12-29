@@ -2,40 +2,109 @@
 include 'koneksi.php';
 
 // Membuat tabel roles
-$sql_roles = "CREATE TABLE IF NOT EXISTS roles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+$sql_roles = "CREATE TABLE IF NOT EXISTS role (
+    id_role INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE
 );";
 
 if (mysqli_query($conn, $sql_roles)) {
-    echo "Table 'roles' created successfully.<br>";
+    echo "Table 'role' created successfully.<br>";
 } else {
-    echo "Error creating table 'roles': " . mysqli_error($conn) . "<br>";
+    echo "Error creating table 'role': " . mysqli_error($conn) . "<br>";
 }
 
 // Membuat tabel users
-$sql_users = "CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+$sql_users = "CREATE TABLE IF NOT EXISTS user (
+    id_user INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role_id INT NOT NULL DEFAULT 4,
+    role_id INT NOT NULL DEFAULT 2,
     gambar VARCHAR(255) DEFAULT 'default.png',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (role_id) REFERENCES role(id_role) ON DELETE CASCADE ON UPDATE CASCADE
 );";
 
 if (mysqli_query($conn, $sql_users)) {
-    echo "Table 'users' created successfully.<br>";
+    echo "Table 'user' created successfully.<br>";
 } else {
-    echo "Error creating table 'users': " . mysqli_error($conn) . "<br>";
+    echo "Error creating table 'user': " . mysqli_error($conn) . "<br>";
+}
+
+// Membuat tabel tugas
+$sql_tugas = "CREATE TABLE IF NOT EXISTS tugas (
+    id_tugas INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    reminder_time TIMESTAMP,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);";
+
+if (mysqli_query($conn, $sql_tugas)) {
+    echo "Table 'tugas' created successfully.<br>";
+} else {
+    echo "Error creating table 'tugas': " . mysqli_error($conn) . "<br>";
+}
+
+// Membuat tabel utas
+$sql_utas = "CREATE TABLE IF NOT EXISTS utas (
+    id_utas INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    gambar VARCHAR(255),
+    likes INT DEFAULT 0,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);";
+
+if (mysqli_query($conn, $sql_utas)) {
+    echo "Table 'utas' created successfully.<br>";
+} else {
+    echo "Error creating table 'utas': " . mysqli_error($conn) . "<br>";
+}
+
+// Membuat tabel post
+$sql_post = "CREATE TABLE IF NOT EXISTS post (
+    id_post INT AUTO_INCREMENT PRIMARY KEY,
+    comment TEXT NOT NULL,
+    likes INT DEFAULT 0,
+    user_id INT NOT NULL,
+    utas_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (utas_id) REFERENCES utas(id_utas) ON DELETE CASCADE ON UPDATE CASCADE
+);";
+
+if (mysqli_query($conn, $sql_post)) {
+    echo "Table 'post' created successfully.<br>";
+} else {
+    echo "Error creating table 'post': " . mysqli_error($conn) . "<br>";
+}
+
+// Membuat tabel comment
+$sql_comment = "CREATE TABLE IF NOT EXISTS comment (
+    id_comment INT AUTO_INCREMENT PRIMARY KEY,
+    comment TEXT NOT NULL,
+    likes INT DEFAULT 0,
+    user_id INT NOT NULL,
+    parent_id INT DEFAULT NULL,
+    post_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES post(id_post) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES comment(id_comment) ON DELETE CASCADE ON UPDATE CASCADE
+);";
+
+if (mysqli_query($conn, $sql_comment)) {
+    echo "Table 'comment' created successfully.<br>";
+} else {
+    echo "Error creating table 'comment': " . mysqli_error($conn) . "<br>";
 }
 
 // Memasukkan data awal ke tabel roles
 $default_roles = ['admin', 'user', 'editor', 'viewer'];
 foreach ($default_roles as $role) {
-    $insert_role_sql = "INSERT IGNORE INTO roles (name) VALUES (?)";
+    $insert_role_sql = "INSERT INTO role (name) VALUES (?)";
     if ($stmt_role = mysqli_prepare($conn, $insert_role_sql)) {
         mysqli_stmt_bind_param($stmt_role, "s", $role);
         if (mysqli_stmt_execute($stmt_role)) {
@@ -53,7 +122,7 @@ $gambar = "default.jpg";
 $role_name = "admin";
 
 // Mengambil role_id untuk role 'admin'
-$role_id_query = "SELECT id FROM roles WHERE name = ?";
+$role_id_query = "SELECT id_role FROM role WHERE name = ?";
 if ($stmt_role_id = mysqli_prepare($conn, $role_id_query)) {
     mysqli_stmt_bind_param($stmt_role_id, "s", $role_name);
     mysqli_stmt_execute($stmt_role_id);
@@ -63,7 +132,7 @@ if ($stmt_role_id = mysqli_prepare($conn, $role_id_query)) {
 }
 
 if (isset($role_id)) {
-    $insert_user_sql = "INSERT INTO users (name, email, username, password, role_id, gambar) VALUES (?, ?, ?, ?, ?, ?)";
+    $insert_user_sql = "INSERT INTO user (name, email, username, password, role_id, gambar) VALUES (?, ?, ?, ?, ?, ?)";
     if ($stmt_user = mysqli_prepare($conn, $insert_user_sql)) {
         $name = "Administrator";
         $email = "admin@example.com";
