@@ -55,92 +55,99 @@ $result = $conn->query($sql);
 
 <body class="mx-auto bg-gray-800 min-h-screen text-white flex flex-col ">
     <!-- Navbar -->
-    <?php include('../../utils/navbar.php'); ?>
-    <div class="mx-9 mb-auto">
-        <!-- Header -->
-        <header class="my-6 mx-5 text-start">
-            <h1 class="text-2xl sm:text-2xl md:text-3xl uppercase font-bold">Daftar Tugas</h1>
-        </header>
+    <main class="mb-auto">
+        <?php include '../../utils/sidebar.php'; ?>
+        <div class="container mx-auto my-auto">
+        
+            <h1 class="text-3xl uppercase font-bold mb-4">Tugas</h1>
+            <!-- Breadcrumb -->
+            <div class="mb-4 text-sm text-gray-100">
+                <a href="#" class="hover:text-blue-500">Tugas</a>
+                <span class="mx-2">/</span>
+                <span>Beranda</span>
+            </div>
 
-        <!-- Main Content -->
-        <div class="px-4">
-            <!-- Deadlines as Table -->
-            <section class="bg-gray-900 p-4 sm:p-6 rounded-lg mb-6">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-lg sm:text-xl font-semibold uppercase">Deadline Time</h2>
-                    <a href="../tugas/create.php" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Tambah Tugas</a>
-                </div>
 
-                <div class="mt-4 overflow-x-auto">
-                    <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
-                        <thead>
-                            <tr class="bg-gray-700">
-                                <th class="px-4 py-2 border border-gray-600 w-7">No</th>
-                                <th class="px-4 py-2 border border-gray-600">Date</th>
-                                <th class="px-4 py-2 border border-gray-600">Deskripsi</th>
-                                <th class="px-4 py-2 border border-gray-600 w-[150px]">Deadline</th>
-                                <th class="px-4 py-2 border border-gray-600 w-[150px]">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1 ?>
-                            <?php while ($row = $result->fetch_assoc()) {  ?>
-                                <tr class="bg-gray-800">
-                                    <td class="px-4 py-2 border border-gray-600"><?=  $i++ ?></td>
-                                    <td class="px-4 py-2 border border-gray-600"><?= $row['name'] ?></td>
-                                    <td class="px-4 py-2 border border-gray-600"><?= $row['description'] ?></td>
-                                    <td class="px-4 py-2 border border-gray-600"><?= $row['reminder_time'] ?></td>
-                                    <td class="px-4 py-2 border border-gray-600">
-                                        <!-- Tombol Edit -->
-                                        <a href="../tugas/edit.php?id=<?= $row['id_tugas'] ?>" class="bg-yellow-500 text-white py-1 px-3 rounded-lg hover:bg-yellow-700 transition mx-2">Edit</a>
+            <!-- Main Content -->
+            <div>
+                <!-- Deadlines as Table -->
+                <section class="bg-gray-900 p-4 sm:p-6 rounded-lg mb-6">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-lg sm:text-xl font-semibold uppercase">Deadline Time</h2>
+                        <a href="../tugas/create.php" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-bold">Tambah Data</a>
+                    </div>
 
-                                        <!-- Tombol Delete -->
-                                        <form action="delete.php" method="POST" class="inline">
-                                            <input type="hidden" name="id" value="<?= $row['id_tugas'] ?>">
-                                            <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition">Delete</button>
-                                        </form>
-                                    </td>
+                    <div class="mt-4 overflow-x-auto">
+                        <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
+                            <thead>
+                                <tr class="bg-gray-700">
+                                    <th class="px-4 py-2 border border-gray-600 w-7">No</th>
+                                    <th class="px-4 py-2 border border-gray-600">Judul</th>
+                                    <th class="px-4 py-2 border border-gray-600">Deskripsi</th>
+                                    <th class="px-4 py-2 border border-gray-600 w-[150px]">Deadline</th>
+                                    <th class="px-4 py-2 border border-gray-600 w-[150px]">Aksi</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1 ?>
+                                <?php while ($row = $result->fetch_assoc()) {  ?>
+                                    <tr class="bg-gray-800">
+                                        <td class="px-4 py-2 border border-gray-600"><?= $i++ ?></td>
+                                        <td class="px-4 py-2 border border-gray-600"><?= $row['name'] ?></td>
+                                        <td class="px-4 py-2 border border-gray-600"><?= $row['description'] ?></td>
+                                        <td class="px-4 py-2 border border-gray-600"><?= $row['reminder_time'] ?></td>
+                                        <td class="px-4 py-2 border border-gray-600">
+                                            <!-- Tombol Edit -->
+                                            <a href="../tugas/edit.php?id=<?= $row['id_tugas'] ?>" class="bg-yellow-500 text-white py-1 px-3 rounded-lg hover:bg-yellow-700 transition mx-2 font-bold">Edit</a>
 
-            <!-- Subjects as Table -->
-            <section class="bg-gray-900 p-4 sm:p-6 rounded-lg">
-                <h2 class="text-lg sm:text-xl font-semibold uppercase">Mata Kuliah</h2>
-                <div class="mt-4 overflow-x-auto">
-                    <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
-                        <thead>
-                            <tr class="bg-gray-700">
-                                <th class="px-4 py-2 border border-gray-600">Subject</th>
-                                <th class="px-4 py-2 border border-gray-600">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="px-4 py-2 border border-gray-600">Matdis</td>
-                                <td class="px-4 py-2 border border-gray-600">Active</td>
-                            </tr>
-                            <tr class="bg-gray-800">
-                                <td class="px-4 py-2 border border-gray-600">Basis Data</td>
-                                <td class="px-4 py-2 border border-gray-600">Active</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2 border border-gray-600">Alpro</td>
-                                <td class="px-4 py-2 border border-gray-600">Active</td>
-                            </tr>
-                            <tr class="bg-gray-800">
-                                <td class="px-4 py-2 border border-gray-600">IUXD</td>
-                                <td class="px-4 py-2 border border-gray-600">Active</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                                            <!-- Tombol Delete -->
+                                            <form action="delete.php" method="POST" class="inline">
+                                                <input type="hidden" name="id" value="<?= $row['id_tugas'] ?>">
+                                                <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition font-bold">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Subjects as Table -->
+                <section class="bg-gray-900 p-4 sm:p-6 rounded-lg">
+                    <h2 class="text-lg sm:text-xl font-semibold uppercase">Mata Kuliah</h2>
+                    <div class="mt-4 overflow-x-auto">
+                        <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
+                            <thead>
+                                <tr class="bg-gray-700">
+                                    <th class="px-4 py-2 border border-gray-600">Subject</th>
+                                    <th class="px-4 py-2 border border-gray-600">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-2 border border-gray-600">Matdis</td>
+                                    <td class="px-4 py-2 border border-gray-600">Active</td>
+                                </tr>
+                                <tr class="bg-gray-800">
+                                    <td class="px-4 py-2 border border-gray-600">Basis Data</td>
+                                    <td class="px-4 py-2 border border-gray-600">Active</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border border-gray-600">Alpro</td>
+                                    <td class="px-4 py-2 border border-gray-600">Active</td>
+                                </tr>
+                                <tr class="bg-gray-800">
+                                    <td class="px-4 py-2 border border-gray-600">IUXD</td>
+                                    <td class="px-4 py-2 border border-gray-600">Active</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <?php include '../../utils/footer.php'; ?>

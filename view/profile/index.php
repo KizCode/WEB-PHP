@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 // Ambil data user dari database
 include('../../koneksi.php');
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM users WHERE id = $user_id";
+$query = "SELECT * FROM user WHERE id_user = $user_id";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
@@ -26,9 +26,17 @@ $user = mysqli_fetch_assoc($result);
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="scale-50 sm:scale-75 lg:scale-100 bg-gray-900 text-white font-poppins h-screen flex items-center justify-center">
+<body class="mx-auto bg-gray-800 min-h-screen text-white flex flex-col ">
+  <?php include '../../utils/sidebar.php'; ?>
   <!-- Card Container -->
-  <div class="bg-gray-800 w-full max-w-4xl rounded-lg p-6 shadow-lg">
+  <div class="bg-gray-900 p-9 container rounded-lg shadow-lg mx-auto my-auto">
+    <h1 class="text-3xl uppercase font-bold mb-4">Profile</h1>
+    <!-- Breadcrumb -->
+    <div class="mb-6 text-sm text-gray-100">
+      <a href="#" class="hover:text-blue-500">Profile</a>
+      <span class="mx-2">/</span>
+      <span>Beranda</span>
+    </div>
     <!-- Header -->
     <div class="flex items-center gap-6">
       <img src="../../assets/upload/<?= !empty($user['gambar']) ? $user['gambar'] : 'default.jpg' ?>" alt="Avatar" class="w-24 h-24 rounded-full border-2 border-white">

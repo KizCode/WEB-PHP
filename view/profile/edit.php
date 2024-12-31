@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Ambil data pengguna dari database
-$query = "SELECT * FROM users WHERE id = ?";
+$query = "SELECT * FROM user WHERE id_user = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -61,12 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Simpan nama file baru ke database
-        $query_update = "UPDATE users SET name = ?, email = ?, username = ?, gambar = ? WHERE id = ?";
+        $query_update = "UPDATE user SET name = ?, email = ?, username = ?, gambar = ? WHERE id_user = ?";
         $stmt = $conn->prepare($query_update);
         $stmt->bind_param("ssssi", $name, $email, $username, $file_name, $user_id);
     } else {
         // Update tanpa mengubah foto profil
-        $query_update = "UPDATE users SET name = ?, email = ?, username = ? WHERE id = ?";
+        $query_update = "UPDATE user SET name = ?, email = ?, username = ? WHERE id_user = ?";
         $stmt = $conn->prepare($query_update);
         $stmt->bind_param("sssi", $name, $email, $username, $user_id);
     }
