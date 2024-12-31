@@ -1,146 +1,64 @@
-<?php
-session_start();
-// Periksa apakah pengguna sudah login
-if (!isset($_SESSION['user_id'])) {
-  header("Location: login.php"); // Redirect ke login jika belum login
-  exit();
-}
-
-// Ambil data user dari database
-include('../WEB-PHP/koneksi.php');
-$user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM users WHERE id = $user_id";
-$result = mysqli_query($conn, $query);
-$user = mysqli_fetch_assoc($result);
-
-// Menulis query untuk mengambil data tugas
-$sql = "SELECT * FROM tasks";
-
-// Menjalankan query
-$result = $conn->query($sql);
-
-
-?>
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Done</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Pastikan tema mengikuti preferensi pengguna
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
 
-<body>
-  <!-- Navbar -->
-  <div class="container">
-    <?php include 'utils/navbar.php'; ?>
-
-    <!-- Header -->
-    <header>
-      <h1 class="text-3xl font-bold">Hello, <?php echo $user['username']; ?></h1>
+<body class="bg-white dark:bg-gray-900 text-black dark:text-white">
+    <header class="bg-gray-700 shadow sticky top-0">
+        <nav class="container mx-auto flex items-center justify-between py-6">
+            <a class="font-bold text-gray-300 text-lg" href="#">Done</a>
+            <button id="menu-toggle" class="block lg:hidden">
+                <span class="material-icons">menu</span>
+            </button>
+            <ul class="text-gray-300 hidden font-bold lg:flex space-x-6" id="menu">
+                <li><a href="#features" class="hover:text-blue-500">Features</a></li>
+                <li><a href="#contact" class="hover:text-blue-500">Contact</a></li>
+                <li><a href="login.php" class="hover:text-blue-500">Login</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- Deadlines -->
-      <section class="deadlines">
-
-        <h2 class="text-uppercase">Deadlin Time</h2>
-        <div class="deadline">
-          <h2>Friday, 26 April 2024</h2>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
+    <section class="hero flex flex-col items-center justify-center h-screen text-center text-white bg-gradient-to-b from-gray-700 to-gray-200 dark:to-gray-900">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-4">Welcome to Our Service</h1>
+        <p class="text-lg lg:text-xl max-w-2xl mb-8"></p>
+        <div class="flex space-x-4">
+            <a href="#features" class="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg">Get Started</a>
+            <a href="login.php" class="btn bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">Login</a>
         </div>
-        <div class="deadline">
-          <h2>Saturday, 27 April 2024</h2>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
+    </section>
+
+    <div class="py-20 container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Our Teams</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <img src="https://via.placeholder.com/100" alt="Feature 1" class="mx-auto mb-4">
+                <p class="font-semibold text-lg dark:text-gray-200">BERLI FERIZ ADAM</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <img src="https://via.placeholder.com/100" alt="Feature 2" class="mx-auto mb-4">
+                <p class="font-semibold text-lg dark:text-gray-200">YUSTIKA DEWI AMELIA</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <img src="https://via.placeholder.com/100" alt="Feature 3" class="mx-auto mb-4">
+                <p class="font-semibold text-lg dark:text-gray-200">REZFA ALHAZ</p>
+            </div>
         </div>
-      </section>
-
-      <!-- Subjects and Current Project -->
-      <div class="subjects-and-project">
-        <section class="subjects">
-          <h2>My Subject</h2>
-          <div class="subject-grid">
-            <div class="subject">Matdis</div>
-            <div class="subject">Basis Data</div>
-            <div class="subject">Alpro</div>
-            <div class="subject">IUXD</div>
-          </div>
-        </section>
-
-
-        <section class="current-project">
-          <h2>Current Project</h2>
-          <div class="progress-bar" id="bar">
-            <button class="not-finished">Not Finished Yet</button>
-            <button class="finished">Finished</button>
-            <button class="late">Late (2)</button>
-          </div>
-          <div class="tugas">
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nama Tugas</th>
-                  <th>Deskripsi</th>
-                  <th>Waktu Pengingat</th>
-                  <th>Tanggal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                // Mengecek apakah ada hasil
-                if ($result->num_rows > 0) {
-                  // Output data untuk setiap baris
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["id"] . "</td>";
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["description"] . "</td>";
-                    echo "<td>" . $row["reminder_time"] . "</td>";
-
-                    echo "</tr>";
-                  }
-                } else {
-                  echo "<tr><td colspan='5'>Tidak ada data</td></tr>";
-                }
-                ?>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-      </div>
     </div>
-  </div>
-  <?php include 'script.php' ?>
+
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>

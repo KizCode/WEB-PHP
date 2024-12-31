@@ -1,142 +1,70 @@
 <?php
-include '../koneksi.php';
+include 'user_management.php';
 
-// Tambah tugas
-if (isset($_POST['create'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $role_id = $_POST['role_id'];
-
-
-
-    $sql = "INSERT INTO users (name, email, username, password, role) VALUES ('$name', '$email', '$username', '$password', '$role')";
-    $conn->query($sql);
-    header("Location: index.php");
-}
-
-// Hapus tugas
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $sql = "DELETE FROM users WHERE id=$id";
-    $conn->query($sql);
-    header("Location: index.php");
-}
-
-// Ambil data untuk edit
-$taskToEdit = null;
-if (isset($_GET['edit'])) {
-    $id = $_GET['edit'];
-    $result = $conn->query("SELECT * FROM users WHERE id=$id");
-    $taskToEdit = $result->fetch_assoc();
-}
-
-// Update tugas
-if (isset($_POST['update'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $role = $_POST['role_id'];
-
-    $sql = "UPDATE users SET name='$name', email='$email', username='$username', role_id='$role_id,' WHERE id=$id";
-    $conn->query($sql);
-    header("Location: index.php");
-}
-
-// Ambil semua tugas
-$users = $conn->query("SELECT * FROM users ORDER BY created_at DESC");
-
+$users = getAllUsers($conn);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>users</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="">
+    <title>Daftar User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div class="container">
-        <h1>Daftar User</h1>
-        <div class="card">
-            <div class="card-body">
+<body class="bg-gray-900 text-white">
+    <?php include('../utils/navbar.php'); ?>
 
-                <!-- Form Tambah/Edit Tugas -->
-                <div class="add-task-form">
-                    <h2><?= $taskToEdit ? 'Edit Tugas' : 'Tambah Tugas' ?></h2>
-                    <form method="POST">
-                        <input type="hidden" name="id" value="<?= $taskToEdit['id'] ?? '' ?>">
-                        <div class="form-group">
-                            <label for="taskName">Nama Tugas:</label>
-                            <input class="form-control" type="text" id="taskName" name="name" value="<?= $taskToEdit['name'] ?? '' ?>" placeholder="Masukkan nama user" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="taskTime">Email:</label>
-                            <input class="form-control" type="email" id="taskTime" name="email" value="<?= $taskToEdit['email'] ?? '' ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="taskTime">Username:</label>
-                            <input class="form-control" type="name" id="taskTime" name="username" value="<?= $taskToEdit['username'] ?? '' ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="role">Role:</label>
-                            <select class="form-control" id="role" name="role_id" required>
-                                <?php
-                                $roles = $conn->query("SELECT id, name FROM roles");
-                                while ($role = $roles->fetch_assoc()) {
-                                    echo "<option value='{$role['id']}'>{$role['name']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <button type="submit" name="<?= $taskToEdit ? 'update' : 'create' ?>">
-                            <?= $taskToEdit ? 'Update Tugas' : 'Tambah Tugas' ?>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <?php
-        $roles = $conn->query("SELECT id, name FROM roles"); 
-        $role = $roles->fetch_assoc();    
-        ?>
-        <!-- Daftar Tugas -->
-        <div class="task-list">
-            <h2>Daftar User</h2>
-            <table border="1" cellpadding="10" cellspacing="0">
+    <div class="container mx-auto p-6">
+
+        <!-- Daftar User -->
+        <div>
+            <h2 class="text-2xl font-bold">Daftar User</h2>
+            <table class="min-w-full table-auto mt-4">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Aksi</th>
+                        <th class="border-b px-4 py-2">ID</th>
+                        <th class="border-b px-4 py-2">Nama</th>
+                        <th class="border-b px-4 py-2">Email</th>
+                        <th class="border-b px-4 py-2">Username</th>
+                        <th class="border-b px-4 py-2">Role</th>
+                        <th class="border-b px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($user = $users->fetch_assoc()): ?>
                         <tr>
-                            <td><?= $user['id'] ?></td>
-                            <td><?= $user['name'] ?></td>
-                            <td><?= $user['email'] ?></td>
-                            <td><?= $user['username'] ?></td>
-                            <td><?= $role['name'] ?></td>
-                            <td>
-                                <a href="index.php?edit=<?= $task['id'] ?>">Edit</a>
-                                <a href="index.php?delete=<?= $task['id'] ?>" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                            <td class="border-b px-4 py-2"><?= $user['id'] ?></td>
+                            <td class="border-b px-4 py-2"><?= $user['name'] ?></td>
+                            <td class="border-b px-4 py-2"><?= $user['email'] ?></td>
+                            <td class="border-b px-4 py-2"><?= $user['username'] ?></td>
+                            <td class="border-b px-4 py-2">
+                                <?php
+                                $role = getRoleById($conn, $user['role_id']);
+                                echo $role['name'];
+                                ?>
+                            </td>
+                            <td class="border-b px-4 py-2">
+                                <a href="edit_user.php?edit=<?= $user['id'] ?>" class="text-blue-500 hover:text-blue-600">Edit</a>
+                                <a href="delete_user.php?delete=<?= $user['id'] ?>" class="text-red-500 hover:text-red-600" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
         </div>
+
     </div>
+    <script>
+    // Toggle dropdown menu
+    document.getElementById('profileMenu').addEventListener('click', () => {
+      const menu = document.getElementById('dropdownMenu');
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
 </body>
 
 </html>

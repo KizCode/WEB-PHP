@@ -1,17 +1,26 @@
 <?php
-include('../../koneksi.php');
+session_start();
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect ke login jika belum login
+    exit();
+}
 
 // Tambah tugas
+include('../../koneksi.php');
 if (isset($_POST['create'])) {
     $name = $_POST['name'];
+    $description = $_POST['description'];
     $reminder_time = $_POST['reminder_time'];
+    $user_id = $_SESSION['user_id']; 
 
-    $sql = "INSERT INTO tasks (name, reminder_time) VALUES ('$name', '$reminder_time')";
+    $sql = "INSERT INTO tugas (name, description, reminder_time, user_id) VALUES ('$name', '$description', '$reminder_time', '$user_id')";
     $conn->query($sql);
-    header("Location: ../../../WEB-PHP/index.php");
+    header("Location: ../tugas/index.php");
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -20,47 +29,41 @@ if (isset($_POST['create'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Tugas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../style/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Tambah Tugas</h1>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Form Tambah Tugas</h5>
-                        <form method="POST">
-                            <!-- Nama Tugas -->
-                            <div class="mb-3">
-                                <label for="taskName" class="form-label">Nama Tugas:</label>
-                                <input type="text" class="form-control" id="taskName" name="name" placeholder="Masukkan nama tugas" required>
-                            </div>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="container mx-auto mt-10 px-4">
+        <div class="flex justify-center">
+            <div class="w-full max-w-xl">
+                <div class="bg-gray-800 text-white text-gray-800 rounded-lg shadow-lg p-6 scale-75 md:scale-100 lg:scale-125">
+                    <h5 class="text-center text-2xl font-semibold mb-4">Tambah Tugas</h5>
+                    <form method="POST">
+                        <!-- Nama Tugas -->
+                        <div class="mb-4">
+                            <label for="taskName" class="block text-sm font-medium mb-2">Nama Tugas:</label>
+                            <input type="text" id="taskName" name="name" class="w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none" placeholder="Masukkan nama tugas" required>
+                        </div>
 
-                            <!-- Deskripsi Tugas -->
-                            <div class="mb-3">
-                                <label for="taskDescription" class="form-label">Deskripsi Tugas:</label>
-                                <textarea class="form-control" id="taskDescription" name="description" rows="3" placeholder="Masukkan deskripsi tugas" required></textarea>
-                            </div>
+                        <!-- Deskripsi Tugas -->
+                        <div class="mb-4">
+                            <label for="taskDescription" class="block text-sm font-medium mb-2">Deskripsi Tugas:</label>
+                            <textarea id="taskDescription" name="description" rows="3" class="w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none" placeholder="Masukkan deskripsi tugas" required></textarea>
+                        </div>
 
-                            <!-- Waktu Pengingat -->
-                            <div class="mb-3">
-                                <label for="taskTime" class="form-label">Waktu Pengingat:</label>
-                                <input type="datetime-local" class="form-control" id="taskTime" name="reminder_time" required>
-                            </div>
+                        <!-- Waktu Pengingat -->
+                        <div class="mb-4">
+                            <label for="taskTime" class="block text-sm font-medium mb-2">Waktu Pengingat:</label>
+                            <input type="datetime-local" id="taskTime" name="reminder_time" class="w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none" required>
+                        </div>
 
-                            <!-- Tombol Submit -->
-                            <button type="submit" class="btn btn-primary w-100" name="create">Tambah Tugas</button>
-                        </form>
-                    </div>
+                        <!-- Tombol Submit -->
+                        <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" name="create">Tambah Tugas</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
