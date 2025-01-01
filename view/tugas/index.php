@@ -31,6 +31,7 @@ $result = $conn->query($sql);
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .dataTables_wrapper .dataTables_length select {
             background-color: #1f2937;
@@ -76,6 +77,7 @@ $result = $conn->query($sql);
                         <h2 class="text-lg sm:text-xl font-semibold uppercase">Deadline Time</h2>
                         <a href="../tugas/create.php" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-bold">Tambah Data</a>
                     </div>
+            
 
                     <div class="mt-4 overflow-x-auto">
                         <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
@@ -101,10 +103,35 @@ $result = $conn->query($sql);
                                             <a href="../tugas/edit.php?id=<?= $row['id_tugas'] ?>" class="bg-yellow-500 text-white py-1 px-3 rounded-lg hover:bg-yellow-700 transition mx-2 font-bold">Edit</a>
 
                                             <!-- Tombol Delete -->
-                                            <form action="delete.php" method="POST" class="inline">
+                                            <form action="delete.php" method="POST" class="inline" id="deleteForm-<?= $row['id_tugas'] ?>">
                                                 <input type="hidden" name="id" value="<?= $row['id_tugas'] ?>">
-                                                <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition font-bold">Delete</button>
+                                                <button type="button" 
+                                                        class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition font-bold"
+                                                        onclick="confirmDelete(<?= $row['id_tugas'] ?>)">
+                                                    Delete
+                                                </button>
                                             </form>
+                                            
+                                            <script>
+                                                function confirmDelete(taskId) {
+                                                    Swal.fire({
+                                                        title: 'Apakah Anda yakin?',
+                                                        text: "Tugas ini akan dihapus secara permanen!",
+                                                        icon: 'warning',
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: '#3085d6',
+                                                        cancelButtonColor: '#d33',
+                                                        confirmButtonText: 'Ya, hapus!',
+                                                        cancelButtonText: 'Batal'
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            // Kirim form jika dikonfirmasi
+                                                            document.getElementById(`deleteForm-${taskId}`).submit();
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+
                                         </td>
                                     </tr>
                                 <?php } ?>
