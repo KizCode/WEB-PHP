@@ -59,7 +59,7 @@ $result = $conn->query($sql);
     <main class="mb-auto">
         <?php include '../../utils/sidebar.php'; ?>
         <div class="container mx-auto my-auto">
-        
+
             <h1 class="text-3xl uppercase font-bold mb-4">Tugas</h1>
             <!-- Breadcrumb -->
             <div class="mb-4 text-sm text-gray-100">
@@ -77,7 +77,7 @@ $result = $conn->query($sql);
                         <h2 class="text-lg sm:text-xl font-semibold uppercase">Deadline Time</h2>
                         <a href="../tugas/create.php" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-bold">Tambah Data</a>
                     </div>
-            
+
 
                     <div class="mt-4 overflow-x-auto">
                         <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
@@ -105,50 +105,12 @@ $result = $conn->query($sql);
                                             <!-- Tombol Delete -->
                                             <form action="delete.php" method="POST" class="inline" id="deleteForm-<?= $row['id_tugas'] ?>">
                                                 <input type="hidden" name="id" value="<?= $row['id_tugas'] ?>">
-                                                <button type="button" 
-                                                        class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition font-bold"
-                                                        onclick="confirmDelete(<?= $row['id_tugas'] ?>)">
+                                                <button type="button"
+                                                    class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition font-bold"
+                                                    onclick="confirmDelete(<?= $row['id_tugas'] ?>)">
                                                     Delete
                                                 </button>
                                             </form>
-                                            
-                                            <script>
-                                                function confirmDelete(taskId) {
-                                                    Swal.fire({
-                                                        title: 'Apakah Anda yakin?',
-                                                        text: "Tugas ini akan dihapus secara permanen!",
-                                                        icon: 'warning',
-                                                        showCancelButton: true,
-                                                        confirmButtonColor: '#3085d6',
-                                                        cancelButtonColor: '#d33',
-                                                        confirmButtonText: 'Ya, hapus!',
-                                                        cancelButtonText: 'Batal'
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            // Kirim form jika dikonfirmasi
-                                                            document.getElementById(`deleteForm-${taskId}`).submit();
-                                                        }
-                                                    });
-                                                }
-                                            </script>
-                                            <script>
-                                                // Cek apakah URL memiliki parameter "success"
-                                                const urlParams = new URLSearchParams(window.location.search);
-                                                if (urlParams.has('success')) {
-                                                    // Tampilkan pesan pop-up menggunakan SweetAlert
-                                                    Swal.fire({
-                                                        title: 'Berhasil!',
-                                                        text: 'Tugas berhasil diperbarui.',
-                                                        icon: 'success',
-                                                        confirmButtonText: 'OK'
-                                                    });
-
-                                                    // Hapus parameter "success" dari URL
-                                                    const url = new URL(window.location.href);
-                                                    url.searchParams.delete('success');
-                                                    window.history.replaceState({}, document.title, url.toString());
-                                                }
-                                            </script>
                                         </td>
                                     </tr>
                                 <?php } ?>
