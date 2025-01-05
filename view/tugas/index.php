@@ -113,7 +113,7 @@ $result = $conn->query($sql);
             <section class="bg-gray-900 p-4 sm:p-6 rounded-lg">
                 <h2 class="text-lg sm:text-xl font-semibold uppercase">Mata Kuliah</h2>
                 <div class="mt-4 overflow-x-auto">
-                    <table class="table-auto w-full text-left border-collapse border border-gray-700">
+                    <table id="Table1" class="table-auto w-full text-left border-collapse border border-gray-700">
                         <thead>
                             <tr class="bg-gray-700">
                                 <th class="px-4 py-2 border border-gray-600">Subject</th>

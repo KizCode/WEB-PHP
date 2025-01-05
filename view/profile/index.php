@@ -15,7 +15,7 @@ $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
 ?>
-z
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -132,6 +132,8 @@ z
       <a href="../../delete.php" class="w-full sm:w-auto text-center bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded transition">Hapus Akun</a>
     </div>
   </div>
+  <!-- Footer -->
+  <?php include '../../utils/footer.php'; ?>
 </body>
 
 </html>
