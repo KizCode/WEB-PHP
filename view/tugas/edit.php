@@ -38,12 +38,14 @@ if (isset($_POST['update'])) {
     // Update query dengan kolom yang benar
     $sql = "UPDATE tugas SET name = '$name', description = '$description', reminder_time = '$reminder_time' WHERE id_tugas = $id";
     if ($conn->query($sql) === TRUE) {
-        header("Location: index.php"); // Redirect ke halaman utama setelah berhasil update
+        header("Location: index.php?success=1"); // Redirect ke halaman utama setelah berhasil update
         exit();
     } else {
         echo "Error: " . $conn->error;
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
