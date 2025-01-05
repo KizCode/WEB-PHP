@@ -44,7 +44,7 @@ if ($result) {
   <main class="mb-auto">
     <?php include('../../utils/sidebar.php'); ?>
     <div class="container mb-auto mx-auto my-auto">
-      <h1 class="text-3xl uppercase font-bold mb-4">Dashboard</h1>
+      <h1 class="text-5xl uppercase font-bold mb-4">Dashboard</h1>
       <!-- Breadcrumb -->
       <div class="mb-4 text-sm text-gray-100">
         <a href="#" class="hover:text-blue-500">Beranda</a>
