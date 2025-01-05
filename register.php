@@ -14,6 +14,14 @@ if (!isset($_SESSION['users']) == false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genius Task Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Fungsi untuk toggle password visibility
+        function togglePassword(id) {
+            const passwordField = document.getElementById(id);
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+        }
+    </script>
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg-gray-900">
@@ -28,10 +36,10 @@ if (!isset($_SESSION['users']) == false) {
         </div>
 
         <form class="mx-5" action="register_process.php" method="post">
-            <!-- Full Name -->
-            <div class="mb-4">
-                <label for="name" class="block mb-1 font-semibold">Full Name</label>
-                <input type="text" id="name" name="name" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name" required>
+             <!-- Username -->
+             <div class="mb-4">
+                <label for="username" class="block mb-1 font-semibold">Username</label>
+                <input type="text" id="username" name="username" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Choose a username" required>
             </div>
 
             <!-- Email -->
@@ -40,22 +48,31 @@ if (!isset($_SESSION['users']) == false) {
                 <input type="email" id="email" name="email" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" required>
             </div>
 
-            <!-- Username -->
-            <div class="mb-4">
-                <label for="username" class="block mb-1 font-semibold">Username</label>
-                <input type="text" id="username" name="username" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Choose a username" required>
-            </div>
 
             <!-- Password -->
             <div class="mb-4">
                 <label for="password" class="block mb-1 font-semibold">Password</label>
-                <input type="password" id="password" name="password" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
+                <div class="relative">
+                    <input type="password" id="password" name="password" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
+                    <button type="button" onclick="togglePassword('password')" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Confirm Password -->
             <div class="mb-4">
                 <label for="confirm_password" class="block mb-1 font-semibold">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
+                <div class="relative">
+                    <input type="password" id="confirm_password" name="confirm_password" class="w-full px-4 py-2 text-gray-800 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
+                    <button type="button" onclick="togglePassword('confirm_password')" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Submit Button -->

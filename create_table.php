@@ -16,9 +16,9 @@ if (mysqli_query($conn, $sql_roles)) {
 // Membuat tabel users
 $sql_users = "CREATE TABLE IF NOT EXISTS user (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    name VARCHAR(100) NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     role_id INT NOT NULL DEFAULT 2,
     gambar VARCHAR(255) DEFAULT 'default.png',
@@ -50,7 +50,7 @@ if (mysqli_query($conn, $sql_tugas)) {
 // Membuat tabel utas
 $sql_utas = "CREATE TABLE IF NOT EXISTS utas (
     id_utas INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     gambar VARCHAR(255),
     likes INT DEFAULT 0,

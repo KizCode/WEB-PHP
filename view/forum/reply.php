@@ -25,11 +25,11 @@ $user = mysqli_fetch_assoc($result);
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-800 w-full text-gray-200 flex">
+<body class="bg-[color:var(--main-color)] w-full text-gray-200 flex">
 
     <!-- Main Content -->
     <main class="flex-1 mx-auto">
-        <?php include '../../utils/sidebar.php'; ?>
+        <?php include '../../utils/navbar.php'; ?>
         <div class="container mx-auto my-auto">
             <h1 class="text-3xl uppercase font-bold mb-4">Forum Diskusi</h1>
             <!-- Breadcrumb -->
@@ -110,8 +110,10 @@ $user = mysqli_fetch_assoc($result);
                     </button>
                 </form>
             </section>
+        </div>
+        <!-- Footer -->
+        <?php include '../../utils/footer.php';?>
     </main>
-    </div>
     
 
 </body>

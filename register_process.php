@@ -4,13 +4,12 @@ require_once "koneksi.php";
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
 
-    if (empty($name) || empty($email) || empty($username) || empty($password) || empty($confirm_password)) {
+    if ( empty($email) || empty($username) || empty($password) || empty($confirm_password)) {
         $_SESSION['error'] = "Semua kolom wajib diisi!";
         header('Location: register.php');
         exit;
@@ -35,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $insert_query = "INSERT INTO user (name, email, username, password) VALUES (?, ?, ?, ?)";
+    $insert_query = "INSERT INTO user (email, username, password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($insert_query);
-    $stmt->bind_param("ssss", $name, $email, $username, $hashed_password);
+    $stmt->bind_param("sss", $email, $username, $hashed_password);
 
     if ($stmt->execute()) {
         $_SESSION['success'] = "Registrasi berhasil! Silakan login.";

@@ -15,7 +15,7 @@ $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
 ?>
-
+z
 <!DOCTYPE html>
 <html lang="id">
 
@@ -26,25 +26,37 @@ $user = mysqli_fetch_assoc($result);
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="mx-auto bg-gray-800 min-h-screen text-white flex flex-col ">
-  <?php include '../../utils/sidebar.php'; ?>
+<body class="mx-auto bg-[color:var(--main-color)]  text-white min-h-screen flex flex-col">
+  <?php include '../../utils/navbar.php'; ?>
+
   <!-- Card Container -->
-  <div class="bg-gray-900 p-9 container rounded-lg shadow-lg mx-auto my-auto">
-    <h1 class="text-3xl uppercase font-bold mb-4">Profile</h1>
+  <div class="bg-gray-800 p-6 sm:p-8 lg:p-10 container rounded-lg mx-auto">
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl uppercase font-bold mb-6 text-center sm:text-left">Profile</h1>
+
     <!-- Breadcrumb -->
-    <div class="mb-6 text-sm text-gray-100">
-      <a href="#" class="hover:text-blue-500">Profile</a>
-      <span class="mx-2">/</span>
-      <span>Beranda</span>
+    <div class="mb-4 text-sm text-gray-100 flex flex-wrap items-center">
+      <a href="#" class="hover:text-blue-500">Beranda</a>
+      <span class="mx-2 flex items-center">
+        /
+        <svg class="ml-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd" />
+        </svg>
+      </span>
     </div>
-    <!-- Header -->
-    <div class="flex items-center gap-6">
-      <img src="../../assets/upload/<?= !empty($user['gambar']) ? $user['gambar'] : 'default.jpg' ?>" alt="Avatar" class="w-24 h-24 rounded-full border-2 border-white">
-      <div>
-        <h2 class="text-2xl font-bold"><?php echo $user['username']; ?></h2>
+
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
+      <!-- Avatar -->
+      <img src="../../assets/upload/<?= !empty($user['gambar']) ? htmlspecialchars($user['gambar']) : 'default.jpg' ?>" alt="Avatar" class="w-24 h-24 sm:w-24 sm:h-24  rounded-full border-4 border-white object-cover">
+
+      <!-- User Info -->
+      <div class="flex-1">
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold"><?= htmlspecialchars($user['username']); ?></h2>
         <p class="text-gray-400">D3 Sistem Informasi</p>
       </div>
-      <div class="flex gap-8 text-center ml-auto">
+
+      <!-- User Stats -->
+      <div class="flex flex-col sm:flex-row gap-6 text-center sm:text-left">
         <div>
           <h3 class="text-xl font-bold">12</h3>
           <p class="text-gray-400">Pengikut</p>
@@ -57,51 +69,56 @@ $user = mysqli_fetch_assoc($result);
     </div>
 
     <!-- Bio Section -->
-    <div class="mt-6 text-lg">
-      <h3 class="text-xl font-bold">Bio</h3>
-      <p class="mt-2 text-gray-400">Seorang mahasiswa yang bersemangat di bidang Sistem Informasi dengan minat dalam pengembangan perangkat lunak dan desain UI/UX. Bersemangat untuk belajar dan berkolaborasi dalam proyek.</p>
+    <div class="mb-8">
+      <h3 class="text-lg sm:text-xl font-semibold mb-2">Bio</h3>
+      <p class="text-gray-400 leading-relaxed">
+        Seorang mahasiswa yang bersemangat di bidang Sistem Informasi dengan minat dalam pengembangan perangkat lunak dan desain UI/UX. Bersemangat untuk belajar dan berkolaborasi dalam proyek.
+      </p>
     </div>
 
     <!-- Details Section -->
-    <div class="mt-6 grid gap-4">
+    <div class="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="flex items-center gap-4">
-        <span class="text-lg">📍</span>
-        <p class="leading-tight">Bandung<br><span class="text-gray-400">Telkom University</span></p>
+        <span class="text-2xl">📍</span>
+        <p>
+          Bandung<br>
+          <span class="text-gray-400">Telkom University</span>
+        </p>
       </div>
       <div class="flex items-center gap-4">
-        <span class="text-lg">📅</span>
+        <span class="text-2xl">📅</span>
         <p>Mata Kuliah (4)</p>
       </div>
       <div class="flex items-center gap-4">
-        <span class="text-lg">📞</span>
+        <span class="text-2xl">📞</span>
         <p>08123456789</p>
       </div>
     </div>
 
     <!-- Social Links -->
-    <div class="mt-6">
-      <h3 class="text-xl font-bold">Tautan Sosial</h3>
-      <div class="flex gap-6 mt-2">
-        <a href="#" class="text-blue-500 hover:text-blue-400">Facebook</a>
-        <a href="#" class="text-blue-500 hover:text-blue-400">Twitter</a>
-        <a href="#" class="text-blue-500 hover:text-blue-400">LinkedIn</a>
-        <a href="#" class="text-blue-500 hover:text-blue-400">Instagram</a>
+    <div class="mb-8">
+      <h3 class="text-lg sm:text-xl font-semibold mb-2">Tautan Sosial</h3>
+      <div class="flex flex-wrap gap-4">
+        <a href="#" class="text-blue-500 hover:text-blue-400 transition">Facebook</a>
+        <a href="#" class="text-blue-500 hover:text-blue-400 transition">Twitter</a>
+        <a href="#" class="text-blue-500 hover:text-blue-400 transition">LinkedIn</a>
+        <a href="#" class="text-blue-500 hover:text-blue-400 transition">Instagram</a>
       </div>
     </div>
 
     <!-- Activity Summary -->
-    <div class="mt-6">
-      <h3 class="text-xl font-bold">Ringkasan Aktivitas</h3>
-      <div class="grid gap-4 mt-2">
-        <div class="flex justify-between">
+    <div class="mb-8">
+      <h3 class="text-lg sm:text-xl font-semibold mb-4">Ringkasan Aktivitas</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="flex justify-between items-center bg-gray-800 p-4 rounded-lg">
           <p>Proyek Selesai</p>
           <p class="font-bold">15</p>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center bg-gray-800 p-4 rounded-lg">
           <p>Keterampilan yang Diperoleh</p>
           <p class="font-bold">8</p>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center bg-gray-800 p-4 rounded-lg">
           <p>Tugas Mendatang</p>
           <p class="font-bold">3</p>
         </div>
@@ -109,13 +126,15 @@ $user = mysqli_fetch_assoc($result);
     </div>
 
     <!-- Buttons -->
-    <div class="mt-10 text-center space-x-4">
-      <a href="edit.php" class="inline-block text-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Edit Profil</a>
-      <a href="../dashboard/index.php" class="inline-block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded">Kembali ke Dashboard</a>
-      <a href="../../delete.php" class="inline-block bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded">Hapus Akun</a>
+    <div class="flex flex-col sm:flex-row justify-center sm:justify-start gap-4">
+      <a href="edit.php" class="w-full sm:w-auto text-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition">Edit Profil</a>
+      <a href="../dashboard/index.php" class="w-full sm:w-auto text-center bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded transition">Kembali ke Dashboard</a>
+      <a href="../../delete.php" class="w-full sm:w-auto text-center bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded transition">Hapus Akun</a>
     </div>
-
   </div>
 </body>
+
+</html>
+
 
 </html>

@@ -27,13 +27,13 @@ if (!isset($_SESSION['user']) == false) {
                             Welcome <span class="text-blue-500">Back</span>
                         </h1>
                     </div>
-                    
+
                     <?php if (isset($_GET['error'])) { ?>
                         <div class="mb-4 text-sm text-red-500 bg-red-100 border border-red-400 rounded-lg p-3">
                             <?php echo htmlspecialchars($_GET['error']); ?>
                         </div>
                     <?php } ?>
-                    
+
                     <!-- Form -->
                     <form action="login_process.php" method="post" class="text-white">
                         <!-- Email -->
@@ -43,9 +43,14 @@ if (!isset($_SESSION['user']) == false) {
                         </div>
 
                         <!-- Password -->
-                        <div class="mb-4">
+                        <div class="mb-4 relative">
                             <label for="password" class="block text-sm font-medium">Password</label>
                             <input type="password" name="password" id="password" class="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
+                            <button type="button" id="togglePassword" class="absolute top-9 right-3 text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                                </svg>
+                            </button>
                         </div>
 
                         <!-- Login Button -->
@@ -55,7 +60,7 @@ if (!isset($_SESSION['user']) == false) {
 
                         <!-- Link to Register -->
                         <div class="text-center mb-4">
-                            <a href="register.php" class="text-white text-sm hover:text-blue-500 font-bold">Lupa Password?</a>
+                            <a href="resetpass.php" class="text-white text-sm hover:text-blue-500 font-bold">Lupa Password?</a>
                         </div>
                         <hr>
                         <div class="text-center mt-4">
@@ -66,6 +71,27 @@ if (!isset($_SESSION['user']) == false) {
             </div>
         </div>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordField = document.getElementById("password");
+
+        togglePassword.addEventListener("click", () => {
+            // Toggle the type attribute
+            const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+            passwordField.setAttribute("type", type);
+
+            // Change the icon
+            togglePassword.innerHTML =
+                type === "password" ?
+                `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                       </svg>` :
+                `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                       </svg>`;
+        });
+    </script>
 </body>
 
 </html>
