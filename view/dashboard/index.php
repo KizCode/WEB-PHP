@@ -21,11 +21,56 @@ $result = $conn->query($sql);
 
 // Mengecek apakah query berhasil dijalankan
 if ($result) {
-  // Menghitung jumlah baris hasil query
-  $count = $result->num_rows;
+  $count = $result->num_rows; // Total tugas
 } else {
   $count = 0; // Jika query gagal, set jumlah menjadi 0
 }
+
+// Menghitung tugas berdasarkan status
+$status_counts = [
+  'Selesai' => 0,
+  'Sedang Dikerjakan' => 0,
+  'Terlambat' => 0,
+];
+
+while ($row = $result->fetch_assoc()) {
+  if ($row['status'] === 'Selesai') {
+    $status_counts['Selesai']++;
+  } elseif ($row['status'] === 'Sedang Dikerjakan') {
+    $status_counts['Sedang Dikerjakan']++;
+  } elseif ($row['status'] === 'Terlambat') {
+    $status_counts['Terlambat']++;
+  }
+}
+
+
+// Database query to count activities grouped by month
+$query = "SELECT DATE_FORMAT(created_at, '%M') AS month, COUNT(*) AS count
+          FROM tugas
+          GROUP BY month
+          ORDER BY MIN(created_at)";
+$result = mysqli_query($conn, $query);
+
+// Prepare data for the chart
+$labels = [];
+$data = [];
+while ($row = mysqli_fetch_assoc($result)) {
+  $labels[] = $row['month'];
+  $data[] = $row['count'];
+}
+
+// Convert PHP arrays to JavaScript
+$labels_json = json_encode($labels);
+$data_json = json_encode($data);
+
+
+// Ambil data mata kuliah
+$query_mata_kuliah = "SELECT * FROM mata_kuliah WHERE user_id = $user_id";
+$result_mata_kuliah = mysqli_query($conn, $query_mata_kuliah);
+
+// Ambil data tugas
+$query_tugas = "SELECT * FROM tugas WHERE user_id = $user_id";
+$result_tugas = mysqli_query($conn, $query_tugas);
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +90,7 @@ if ($result) {
     <?php include('../../utils/navbar.php'); ?>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-3xl uppercase font-bold mb-6 text-start">Beranda</h1>
+
       <!-- Breadcrumb -->
       <div class="mb-4 text-sm text-gray-100 flex flex-wrap items-center ml-auto text-right">
         <a href="#" class="hover:text-blue-500">Beranda</a>
@@ -56,62 +102,79 @@ if ($result) {
         </span>
       </div>
 
-      <!-- Header -->
-      <header class="flex flex-wrap justify-between items-center mb-6">
-        <div class="mb-4 md:mb-0">
-          <h1 class="text-xl sm:text-2xl font-bold">Welcome, <?= $user['username']; ?></h1>
-          <p class="text-gray-400 text-sm sm:text-base">Here is an overview of your activity.</p>
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-gray-700 p-4 rounded shadow">
+          <h2 class="text-lg font-bold text-gray-200">Total Tugas</h2>
+          <p class="text-3xl font-semibold text-blue-600"><?= $count ?></p>
         </div>
-      </header>
-
-      <!-- Stats -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <h2 class="text-base sm:text-lg font-semibold">Tasks</h2>
-          <p class="text-xl sm:text-2xl font-bold"><?= $count ?></p>
+        <div class="bg-gray-700 p-4 rounded shadow">
+          <h2 class="text-lg font-bold text-gray-200">Selesai</h2>
+          <p class="text-3xl font-semibold text-green-600"><?= $status_counts['Selesai'] ?></p>
         </div>
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <h2 class="text-base sm:text-lg font-semibold">Completed</h2>
-          <p class="text-xl sm:text-2xl font-bold">0</p>
+        <div class="bg-gray-700 p-4 rounded shadow">
+          <h2 class="text-lg font-bold text-gray-200">Sedang Dikerjakan</h2>
+          <p class="text-3xl font-semibold text-yellow-600"><?= $status_counts['Sedang Dikerjakan'] ?></p>
         </div>
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <h2 class="text-base sm:text-lg font-semibold">Late</h2>
-          <p class="text-xl sm:text-2xl font-bold">0</p>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <h2 class="text-base sm:text-lg font-semibold">Upcoming</h2>
-          <p class="text-xl sm:text-2xl font-bold">0</p>
+        <div class="bg-gray-700 p-4 rounded shadow">
+          <h2 class="text-lg font-bold text-gray-200">Terlambat</h2>
+          <p class="text-3xl font-semibold text-red-600"><?= $status_counts['Terlambat'] ?></p>
         </div>
       </section>
 
-      <!-- Charts Section -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <canvas id="lineChart"></canvas>
+      <!-- Content Section -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Deadline Section -->
+        <div class="bg-gray-700 p-6 rounded-lg">
+          <h2 class="text-lg font-bold mb-4">Deadline Time</h2>
+          <ul id="deadline-list">
+            <?php
+            // Loop through the results once for both mata_kuliah and tugas
+            while ($row = mysqli_fetch_assoc($result_mata_kuliah)) {
+              while ($row1 = mysqli_fetch_assoc($result_tugas)) {
+            ?>
+                <li class="flex items-center bg-white text-black p-2 mb-2 rounded">
+                  <input type="checkbox" class="mr-2" onclick="toggleTask(this)">
+                  <span class="task-name"><?= htmlspecialchars($row['name']) ?> : <?= htmlspecialchars($row1['name']) ?></span>
+                  <span class="status ml-2 text-green-500 hidden">Selesai</span>
+                </li>
+            <?php
+              }
+            }
+            ?>
+          </ul>
         </div>
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <canvas id="barChart"></canvas>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <canvas id="doughnutChart"></canvas>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
-          <canvas id="pieChart"></canvas>
+
+        <!-- Chart Section -->
+        <div class="grid grid-cols-1 gap-6">
+          <div class="bg-gray-700 p-4 rounded-lg shadow-lg">
+            <canvas id="lineChart"></canvas>
+          </div>
+
+          <div class="bg-gray-700 p-4 rounded-lg shadow-lg">
+            <canvas id="pieChart"></canvas>
+          </div>
         </div>
       </section>
     </div>
   </main>
   <?php include '../../utils/footer.php' ?>
+
   <script>
+    // Get the PHP-generated data
+    const labels = <?= $labels_json ?>;
+    const data = <?= $data_json ?>;
+
+    // Create the line chart
     const lineChart = new Chart(document.getElementById('lineChart'), {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: labels,
         datasets: [{
           label: 'Activity',
-          data: [10, 20, 15, 30, 25, 40],
+          data: data,
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.4, // Smooth curve
         }],
       },
       options: {
@@ -119,7 +182,38 @@ if ($result) {
           tooltip: {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
             titleFont: {
-              size: 14
+              size: 14,
+            },
+            bodyFont: {
+              size: 12,
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+
+    const pieChart = new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Selesai', 'Sedang Dikerjakan', 'Terlambat'],
+        datasets: [{
+          label: 'Status Tugas',
+          data: [<?= $status_counts['Selesai'] ?>, <?= $status_counts['Sedang Dikerjakan'] ?>, <?= $status_counts['Terlambat'] ?>], // Update with actual data
+          backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+        }],
+      },
+      options: {
+        plugins: {
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            titleFont: {
+              size: 15
             },
             bodyFont: {
               size: 12
@@ -129,41 +223,13 @@ if ($result) {
       }
     });
 
-    const barChart = new Chart(document.getElementById('barChart'), {
-      type: 'bar',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-        datasets: [{
-          label: 'Tasks',
-          data: [5, 10, 8, 12, 15, 18],
-          backgroundColor: 'rgba(54, 162, 235, 0.8)',
-        }],
-      },
-    });
-
-    const doughnutChart = new Chart(document.getElementById('doughnutChart'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Completed', 'Pending', 'Late'],
-        datasets: [{
-          label: 'Status',
-          data: [50, 30, 20],
-          backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
-        }],
-      },
-    });
-
-    const pieChart = new Chart(document.getElementById('pieChart'), {
-      type: 'pie',
-      data: {
-        labels: ['Urgent', 'High', 'Medium', 'Low'],
-        datasets: [{
-          label: 'Priority',
-          data: [10, 25, 35, 30],
-          backgroundColor: ['#FF5722', '#FF9800', '#FFC107', '#8BC34A'],
-        }],
-      },
-    });
+    function toggleTask(checkbox) {
+      if (checkbox.checked) {
+        checkbox.parentElement.classList.add('line-through', 'opacity-50');
+      } else {
+        checkbox.parentElement.classList.remove('line-through', 'opacity-50');
+      }
+    }
   </script>
 </body>
 

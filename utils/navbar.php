@@ -1,4 +1,4 @@
-<nav id="navbar" class="bg-gray-900 mb-5 shadow-md">
+<nav id="navbar" class="bg-gray-900 mb-5 shadow-md sticky top-0 z-50">
   <div class="container mx-auto py-4 px-4 flex items-center justify-between">
     <!-- User Info -->
     <div class="flex items-center space-x-4">
@@ -15,7 +15,7 @@
     <ul class="hidden md:flex space-x-8 text-white">
       <li><a href="../dashboard/index.php" class="py-2 px-4 rounded hover:bg-gray-700 transition">Beranda</a></li>
       <li><a href="../tugas/index.php" class="py-2 px-4 hover:bg-gray-700 rounded transition">Tugas</a></li>
-      <li><a href="../forum/index.php" class="py-2 px-4 hover:bg-gray-700 rounded transition">Diskusi</a></li>
+      <li><a href="../forum/index.php" class="py-2 px-4 hover:bg-gray-700 rounded transition">Forum</a></li>
     </ul>
 
     <!-- Theme Color Picker -->

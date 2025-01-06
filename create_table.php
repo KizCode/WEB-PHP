@@ -4,7 +4,8 @@ include 'koneksi.php';
 // Membuat tabel roles
 $sql_roles = "CREATE TABLE IF NOT EXISTS role (
     id_role INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE
+    name VARCHAR(50) NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );";
 
 if (mysqli_query($conn, $sql_roles)) {
@@ -22,6 +23,7 @@ $sql_users = "CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(255) NOT NULL,
     role_id INT NOT NULL DEFAULT 2,
     gambar VARCHAR(255) DEFAULT 'default.png',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (role_id) REFERENCES role(id_role) ON DELETE CASCADE ON UPDATE CASCADE
 );";
 
@@ -31,30 +33,53 @@ if (mysqli_query($conn, $sql_users)) {
     echo "Error creating table 'user': " . mysqli_error($conn) . "<br>";
 }
 
-// Membuat tabel tugas
+// Membuat tabel mata_kuliah
+$sql_mata_kuliah = "CREATE TABLE IF NOT EXISTS mata_kuliah (
+    id_mata_kuliah INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    code VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT NOT NULL,
+    user_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);";
+
+if (mysqli_query($conn, $sql_mata_kuliah)) {
+    echo "Table 'mata_kuliah' created successfully.<br>";
+} else {
+    echo "Error creating table 'mata_kuliah': " . mysqli_error($conn) . "<br>";
+}
+
+// Mengubah tabel tugas untuk menambahkan foreign key mata_kuliah_id
 $sql_tugas = "CREATE TABLE IF NOT EXISTS tugas (
     id_tugas INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'Sedang Dikerjakan',
     reminder_time TIMESTAMP,
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+    mata_kuliah_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (mata_kuliah_id) REFERENCES mata_kuliah(id_mata_kuliah) ON DELETE CASCADE ON UPDATE CASCADE
 );";
 
 if (mysqli_query($conn, $sql_tugas)) {
-    echo "Table 'tugas' created successfully.<br>";
+    echo "Table 'tugas' created or modified successfully.<br>";
 } else {
-    echo "Error creating table 'tugas': " . mysqli_error($conn) . "<br>";
+    echo "Error creating or modifying table 'tugas': " . mysqli_error($conn) . "<br>";
 }
+
 
 // Membuat tabel utas
 $sql_utas = "CREATE TABLE IF NOT EXISTS utas (
     id_utas INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     gambar VARCHAR(255),
     likes INT DEFAULT 0,
     user_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
 );";
 
@@ -71,6 +96,7 @@ $sql_post = "CREATE TABLE IF NOT EXISTS post (
     likes INT DEFAULT 0,
     user_id INT NOT NULL,
     utas_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (utas_id) REFERENCES utas(id_utas) ON DELETE CASCADE ON UPDATE CASCADE
 );";

@@ -8,21 +8,35 @@ if (!isset($_SESSION['user_id'])) {
 
 // Tambah tugas
 include('../../koneksi.php');
+
 if (isset($_POST['create'])) {
+    // Ambil data dari form
     $name = $_POST['name'];
     $description = $_POST['description'];
     $reminder_time = $_POST['reminder_time'];
-    $user_id = $_SESSION['user_id']; 
+    $user_id = $_SESSION['user_id'];
+    $mata_kuliah_id = $_POST['mata_kuliah_id']; // Mengambil mata kuliah ID yang dipilih
 
-    $sql = "INSERT INTO tugas (name, description, reminder_time, user_id) VALUES ('$name', '$description', '$reminder_time', '$user_id')";
-    $conn->query($sql);
-    header("Location: ../tugas/index.php");
-    exit();
+    // Gunakan prepared statements untuk menghindari SQL injection
+    $stmt = $conn->prepare("INSERT INTO tugas (name, description, reminder_time, user_id, mata_kuliah_id) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssi", $name, $description, $reminder_time, $user_id, $mata_kuliah_id);
+    if ($stmt->execute()) {
+        // Redirect ke halaman tugas setelah berhasil menambah
+        header("Location: ../tugas/index.php");
+        exit();
+    } else {
+        echo "Error: " . $stmt->error;
+    }
 }
 
+// Query untuk mengambil mata kuliah
+$sql_mata_kuliah = "SELECT id_mata_kuliah, name FROM mata_kuliah";
+$result = mysqli_query($conn, $sql_mata_kuliah);
 
+if (!$result) {
+    die("Error fetching mata kuliah: " . mysqli_error($conn));
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="id">
@@ -41,15 +55,22 @@ if (isset($_POST['create'])) {
                 <div class="bg-gray-800 text-white text-gray-800 rounded-lg shadow-lg p-6 scale-75 md:scale-100 lg:scale-125">
                     <!-- Judul -->
                     <div class="flex justify-between items-center mb-4">
-                        <!-- Judul -->
                         <h5 class="text-center text-2xl font-semibold">Tambah Tugas</h5>
-                        <!-- Tombol X -->
-                        <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
-                            &times;
-                        </a>
+                        <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">&times;</a>
                     </div>
                     <!-- Form -->
                     <form method="POST">
+                        <!-- Pilih Mata Kuliah -->
+                        <label for="mataKuliah" class="block text-sm font-medium mb-2">Pilih Mata Kuliah Tugas:</label>
+                        <select name="mata_kuliah_id" id="mataKuliah" class="mb-2 form-select w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none>" required>
+                            <?php
+                            // Loop through mata kuliah data dan buat opsi
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<option value='" . $row['id_mata_kuliah'] . "'>" . $row['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+
                         <!-- Nama Tugas -->
                         <div class="mb-4">
                             <label for="taskName" class="block text-sm font-medium mb-2">Nama Tugas:</label>
