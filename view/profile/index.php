@@ -14,6 +14,10 @@ $query = "SELECT * FROM user WHERE id_user = $user_id";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
+// Menulis query untuk mengambil data tugas
+$sql = "SELECT * FROM tugas WHERE user_id = $user_id";
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +34,7 @@ $user = mysqli_fetch_assoc($result);
   <?php include '../../utils/navbar.php'; ?>
 
   <!-- Card Container -->
-  <div class="bg-gray-800 p-6 sm:p-8 lg:p-10 container rounded-lg mx-auto">
+  <div class="bg-[color:var(--main-color)] p-6 sm:p-8 lg:p-10 container rounded-lg mx-auto">
     <h1 class="text-2xl sm:text-3xl lg:text-4xl uppercase font-bold mb-6 text-center sm:text-left">Profile</h1>
 
     <!-- Breadcrumb -->
@@ -76,6 +80,10 @@ $user = mysqli_fetch_assoc($result);
       </p>
     </div>
 
+    <?php 
+      if ($result) {
+        $jumlahTugas = $result->num_rows;
+    ?>
     <!-- Details Section -->
     <div class="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="flex items-center gap-4">
@@ -87,13 +95,16 @@ $user = mysqli_fetch_assoc($result);
       </div>
       <div class="flex items-center gap-4">
         <span class="text-2xl">📅</span>
-        <p>Mata Kuliah (4)</p>
+        <p><?= "Jumlah Tugas: $jumlahTugas" ?></p>
       </div>
       <div class="flex items-center gap-4">
         <span class="text-2xl">📞</span>
         <p>08123456789</p>
       </div>
     </div>
+    <?php
+      }
+    ?>
 
     <!-- Social Links -->
     <div class="mb-8">

@@ -63,7 +63,17 @@ if (isset($_POST['update'])) {
         <div class="flex justify-center">
             <div class="w-full max-w-xl">
                 <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 scale-75 md:scale-100 lg:scale-125">
-                    <h5 class="text-center text-2xl font-semibold mb-4">Edit Tugas</h5>
+                    <div class="flex justify-between items-center mb-4">
+                        <!-- Judul -->
+                        <h5 class="text-center text-2xl font-semibold">Edit Tugas</h5>
+                        <!-- Tombol X -->
+                        <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
+                            &times;
+                        </a>
+                    </div>
+
+
+                    <!-- Form -->
                     <form method="POST">
                         <!-- ID (Hidden) -->
                         <input type="hidden" name="id" value="<?= htmlspecialchars($taskToEdit['id_tugas']) ?>">
@@ -86,18 +96,20 @@ if (isset($_POST['update'])) {
                             <input type="datetime-local" class="w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none" name="reminder_time" value="<?= htmlspecialchars($taskToEdit['reminder_time']) ?>" required>
                         </div>
 
+                        <!-- Tombol Submit -->
                         <div class="flex justify-between items-center space-x-2">
-                            <!-- Tombol Submit -->
                             <button type="submit"
                                 class="bg-yellow-500 w-full text-white py-1 px-3 rounded-lg hover:bg-yellow-600 transition duration-200"
                                 name="update">
                                 Perbarui Tugas
                             </button>
                         </div>
+                    </form>
 
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
