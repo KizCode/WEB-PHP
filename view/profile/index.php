@@ -34,7 +34,7 @@ $result = $conn->query($sql);
   <?php include '../../utils/navbar.php'; ?>
 
   <!-- Card Container -->
-  <div class="bg-[color:var(--main-color)] p-6 sm:p-8 lg:p-10 container rounded-lg mx-auto">
+  <div class="bg-gray-800 p-6 sm:p-8 lg:p-10 container rounded-lg mx-auto">
     <h1 class="text-2xl sm:text-3xl lg:text-4xl uppercase font-bold mb-6 text-center sm:text-left">Profile</h1>
 
     <!-- Breadcrumb -->

@@ -96,7 +96,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container mx-auto mt-10 px-4">
         <div class="flex justify-center scale-75 md:scale-100 lg:scale-125">
             <div class="w-full text-white max-w-xl bg-gray-800 p-6 rounded-lg shadow-lg">
-                <h5 class="text-center text-2xl font-semibold mb-4">Edit Profil</h5>
+                <div class="flex justify-between items-center mb-4">
+                    <!-- Judul -->
+                    <h5 class="text-center text-2xl font-semibold">Edit Tugas</h5>
+                    <!-- Tombol X -->
+                    <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
+                        &times;
+                    </a>
+                </div>
                 <form action="edit.php" method="POST" enctype="multipart/form-data">
                     <!-- Nama Lengkap -->
                     <div class="mb-4">
@@ -128,5 +135,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-
-

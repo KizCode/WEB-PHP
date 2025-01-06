@@ -71,8 +71,6 @@ if (isset($_POST['update'])) {
                             &times;
                         </a>
                     </div>
-
-
                     <!-- Form -->
                     <form method="POST">
                         <!-- ID (Hidden) -->

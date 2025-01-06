@@ -39,16 +39,15 @@ if (isset($_POST['create'])) {
         <div class="flex justify-center">
             <div class="w-full max-w-xl">
                 <div class="bg-gray-800 text-white text-gray-800 rounded-lg shadow-lg p-6 scale-75 md:scale-100 lg:scale-125">
-                    <!-- Tombol X -->
-                    <div class="flex justify-end mb-4">
+                    <!-- Judul -->
+                    <div class="flex justify-between items-center mb-4">
+                        <!-- Judul -->
+                        <h5 class="text-center text-2xl font-semibold">Tambah Tugas</h5>
+                        <!-- Tombol X -->
                         <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
                             &times;
                         </a>
                     </div>
-                    
-                    <!-- Judul -->
-                    <h5 class="text-center text-2xl font-semibold mb-4">Tambah Tugas</h5>
-                    
                     <!-- Form -->
                     <form method="POST">
                         <!-- Nama Tugas -->
