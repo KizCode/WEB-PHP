@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-[color:var(--main-color)] text-white text-sm py-6 mt-9" id="contact">
+<footer class="bg-[color:var(--main-color)] text-white text-sm py-6 mt-9 sticky bottom-0 z-50" id="contact">
   <p class="text-center text-white font-bold text-sm">&nbsp; Done 2024. All Rights Reserved.</p>
 </footer>
 

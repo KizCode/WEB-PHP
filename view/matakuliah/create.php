@@ -64,7 +64,7 @@ if (isset($_POST['create'])) {
                         <!-- Deskripsi Tugas -->
                         <div class="mb-4">
                             <label for="taskcode" class="block text-sm font-medium mb-2">Deskripsi Mata Kuliah:</label>
-                            <textarea id="taskcode" name="code" rows="3" class="w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none" placeholder="Masukkan deskripsi tugas"></textarea>
+                            <textarea id="taskcode" name="description" rows="3" class="w-full text-black px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none" placeholder="Masukkan deskripsi tugas"></textarea>
                         </div>
 
 

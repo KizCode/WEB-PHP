@@ -42,7 +42,7 @@ $result_tugas = mysqli_query($conn, $query_tugas);
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-3xl uppercase font-bold mb-6 text-start">Daftar Tugas</h1>
-            
+
             <!-- Mata Kuliah Section -->
             <section class="bg-gray-900 p-4 sm:p-6 rounded-lg mb-6">
                 <div class="flex justify-between items-center">
@@ -61,17 +61,18 @@ $result_tugas = mysqli_query($conn, $query_tugas);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 1; while ($row = mysqli_fetch_assoc($result_mata_kuliah)) { ?>
+                            <?php $i = 1;
+                            while ($row = mysqli_fetch_assoc($result_mata_kuliah)) { ?>
                                 <tr>
                                     <td class="px-4 py-2 border border-gray-600"><?= $i++ ?></td>
-                                    <td class="px-4 py-2 border border-gray-600"><?= $row['name'] ?></td>
-                                    <td class="px-4 py-2 border border-gray-600"><?= $row['code'] ?></td>
-                                    <td class="px-4 py-2 border border-gray-600"><?= $row['description'] ?></td>
+                                    <td class="px-4 py-2 border border-gray-600"><?= htmlspecialchars($row['name']) ?></td>
+                                    <td class="px-4 py-2 border border-gray-600"><?= htmlspecialchars($row['code']) ?></td>
+                                    <td class="px-4 py-2 border border-gray-600"><?= htmlspecialchars($row['description']) ?></td>
                                     <td class="px-4 py-2 border border-gray-600 w-[200px]">
                                         <div class="flex justify-around">
                                             <!-- Tombol Edit -->
                                             <a href="../matakuliah/edit.php?id=<?= $row['id_mata_kuliah'] ?>" class="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-700 font-bold">Edit</a>
-                                            
+
                                             <!-- Tombol Delete -->
                                             <form action="../matakuliah/delete.php" method="POST" class="inline" id="deleteForm-<?= $row['id_mata_kuliah'] ?>">
                                                 <input type="hidden" name="id" value="<?= $row['id_mata_kuliah'] ?>">
@@ -82,6 +83,16 @@ $result_tugas = mysqli_query($conn, $query_tugas);
                                 </tr>
                             <?php } ?>
                         </tbody>
+
+                        <script>
+                            // Fungsi konfirmasi untuk hapus
+                            function confirmDelete(id) {
+                                if (confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?')) {
+                                    document.getElementById('deleteForm-' + id).submit();
+                                }
+                            }
+                        </script>
+
                     </table>
                 </div>
             </section>
@@ -106,7 +117,8 @@ $result_tugas = mysqli_query($conn, $query_tugas);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 1; while ($row = mysqli_fetch_assoc($result_tugas)) { ?>
+                            <?php $i = 1;
+                            while ($row = mysqli_fetch_assoc($result_tugas)) { ?>
                                 <tr class="bg-gray-800">
                                     <td class="px-4 py-2 border border-gray-600"><?= $i++ ?></td>
                                     <td class="px-4 py-2 border border-gray-600"><?= $row['name'] ?></td>
@@ -117,7 +129,7 @@ $result_tugas = mysqli_query($conn, $query_tugas);
                                         <div class="flex justify-around">
                                             <!-- Tombol Edit -->
                                             <a href="../tugas/edit.php?id=<?= $row['id_tugas'] ?>" class="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-700 font-bold">Edit</a>
-                                            
+
                                             <!-- Tombol Delete -->
                                             <form action="delete.php" method="POST" class="inline" id="deleteForm-<?= $row['id_tugas'] ?>">
                                                 <input type="hidden" name="id" value="<?= $row['id_tugas'] ?>">

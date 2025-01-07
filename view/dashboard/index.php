@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_tugas'])) {
         </span>
       </div>
 
-      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div class="bg-gray-700 p-4 rounded shadow">
           <h2 class="text-lg font-bold text-gray-200">Total Tugas</h2>
           <p class="text-3xl font-semibold text-blue-600"><?= $count ?></p>
@@ -131,10 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_tugas'])) {
           <h2 class="text-lg font-bold text-gray-200">Sedang Dikerjakan</h2>
           <p class="text-3xl font-semibold text-yellow-600"><?= $status_counts['Sedang Dikerjakan'] ?></p>
         </div>
-        <div class="bg-gray-700 p-4 rounded shadow">
+        <!-- <div class="bg-gray-700 p-4 rounded shadow">
           <h2 class="text-lg font-bold text-gray-200">Terlambat</h2>
           <p class="text-3xl font-semibold text-red-600"><?= $status_counts['Terlambat'] ?></p>
-        </div>
+        </div> -->
       </section>
 
       <!-- Content Section -->
