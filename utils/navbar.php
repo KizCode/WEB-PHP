@@ -12,10 +12,13 @@
     </div>
 
     <!-- Navigation Links (Desktop) -->
-    <ul class="hidden md:flex space-x-8 text-white">
+    <ul class="hidden md:flex space-x-8 uppercase font-bold text-white">
       <li><a href="../dashboard/index.php" class="py-2 px-4 rounded hover:bg-gray-700 transition">Beranda</a></li>
       <li><a href="../tugas/index.php" class="py-2 px-4 hover:bg-gray-700 rounded transition">Tugas</a></li>
       <li><a href="../forum/index.php" class="py-2 px-4 hover:bg-gray-700 rounded transition">Forum</a></li>
+      <?php if ($user['role_id'] == '1') { ?>
+        <li><a href="../admin/index.php" class="py-2 px-4 hover:bg-gray-700 rounded transition">User</a></li>
+      <?php } ?>
     </ul>
 
     <!-- Theme Color Picker -->
