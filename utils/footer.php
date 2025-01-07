@@ -99,3 +99,101 @@
     localStorage.setItem('footerColor', newColor); // Save footer color
   });
 </script>
+<script>
+    // Get the PHP-generated data
+    const labels = <?= $labels_json ?>;
+    const data = <?= $data_json ?>;
+
+    // Create the line chart
+    const lineChart = new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Activity',
+          data: data,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.4, // Smooth curve
+        }],
+      },
+      options: {
+        plugins: {
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            titleFont: {
+              size: 14,
+            },
+            bodyFont: {
+              size: 12,
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+
+    const pieChart = new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Selesai', 'Sedang Dikerjakan', 'Terlambat'],
+        datasets: [{
+          label: 'Status Tugas',
+          data: [<?= $status_counts['Selesai'] ?>, <?= $status_counts['Sedang Dikerjakan'] ?>, <?= $status_counts['Terlambat'] ?>], // Update with actual data
+          backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+        }],
+      },
+      options: {
+        plugins: {
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            titleFont: {
+              size: 15
+            },
+            bodyFont: {
+              size: 12
+            }
+          }
+        }
+      }
+    });
+
+    function toggleTask(checkbox) {
+      if (checkbox.checked) {
+        checkbox.parentElement.classList.add('line-through', 'opacity-50');
+      } else {
+        checkbox.parentElement.classList.remove('line-through', 'opacity-50');
+      }
+    }
+
+    function toggleTask(checkbox) {
+      const idTugas = checkbox.getAttribute('data-tugas-id');
+      const status = checkbox.checked ? 'Selesai' : 'Sedang Dikerjakan';
+
+      // Kirim permintaan AJAX untuk memperbarui status
+      fetch('', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id_tugas=${idTugas}&status=${status}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            checkbox.nextElementSibling.classList.toggle('line-through', checkbox.checked);
+            checkbox.nextElementSibling.classList.toggle('text-gray-400', checkbox.checked);
+            // Auto-refresh halaman setelah sukses
+            location.reload();
+          } else {
+            alert('Gagal mengubah status tugas: ' + data.error);
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>

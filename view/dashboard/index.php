@@ -71,6 +71,22 @@ $result_mata_kuliah = mysqli_query($conn, $query_mata_kuliah);
 // Ambil data tugas
 $query_tugas = "SELECT * FROM tugas WHERE user_id = $user_id";
 $result_tugas = mysqli_query($conn, $query_tugas);
+
+// Periksa apakah request valid
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_tugas'])) {
+  $id_tugas = $_POST['id_tugas'];
+  $status = $_POST['status'];
+
+  // Update status di database
+  $query = "UPDATE tugas SET status = '$status' WHERE id_tugas = $id_tugas";
+  if (mysqli_query($conn, $query)) {
+    echo json_encode(['success' => true]);
+  } else {
+    echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
+  }
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -127,20 +143,16 @@ $result_tugas = mysqli_query($conn, $query_tugas);
         <div class="bg-gray-700 p-6 rounded-lg">
           <h2 class="text-lg font-bold mb-4">Deadline Time</h2>
           <ul id="deadline-list">
-            <?php
-            // Loop through the results once for both mata_kuliah and tugas
-            while ($row = mysqli_fetch_assoc($result_mata_kuliah)) {
-              while ($row1 = mysqli_fetch_assoc($result_tugas)) {
-            ?>
-                <li class="flex items-center bg-white text-black p-2 mb-2 rounded">
-                  <input type="checkbox" class="mr-2" onclick="toggleTask(this)">
-                  <span class="task-name"><?= htmlspecialchars($row['name']) ?> : <?= htmlspecialchars($row1['name']) ?></span>
-                  <span class="status ml-2 text-green-500 hidden">Selesai</span>
-                </li>
-            <?php
-              }
-            }
-            ?>
+            <?php 
+            while ($row1 = mysqli_fetch_assoc($result_mata_kuliah))
+              while ($row = mysqli_fetch_assoc($result_tugas)) : ?>
+              <li class="flex items-center bg-white text-black p-2 mb-2 rounded">
+                <input type="checkbox" class="mr-2" data-tugas-id="<?= $row['id_tugas'] ?>" onclick="toggleTask(this)" <?= $row['status'] === 'Selesai' ? 'checked' : '' ?>>
+                <span class="<?= $row['status'] === 'Selesai' ? 'line-through text-gray-400' : '' ?>">
+                <?= htmlspecialchars($row1['name']) ?> : <?= htmlspecialchars($row['name']) ?> 
+                </span>
+              </li>
+            <?php endwhile; ?>
           </ul>
         </div>
 
@@ -158,79 +170,6 @@ $result_tugas = mysqli_query($conn, $query_tugas);
     </div>
   </main>
   <?php include '../../utils/footer.php' ?>
-
-  <script>
-    // Get the PHP-generated data
-    const labels = <?= $labels_json ?>;
-    const data = <?= $data_json ?>;
-
-    // Create the line chart
-    const lineChart = new Chart(document.getElementById('lineChart'), {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Activity',
-          data: data,
-          borderColor: 'rgba(75, 192, 192, 1)',
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          tension: 0.4, // Smooth curve
-        }],
-      },
-      options: {
-        plugins: {
-          tooltip: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            titleFont: {
-              size: 14,
-            },
-            bodyFont: {
-              size: 12,
-            },
-          },
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-
-
-    const pieChart = new Chart(document.getElementById('pieChart'), {
-      type: 'pie',
-      data: {
-        labels: ['Selesai', 'Sedang Dikerjakan', 'Terlambat'],
-        datasets: [{
-          label: 'Status Tugas',
-          data: [<?= $status_counts['Selesai'] ?>, <?= $status_counts['Sedang Dikerjakan'] ?>, <?= $status_counts['Terlambat'] ?>], // Update with actual data
-          backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
-        }],
-      },
-      options: {
-        plugins: {
-          tooltip: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            titleFont: {
-              size: 15
-            },
-            bodyFont: {
-              size: 12
-            }
-          }
-        }
-      }
-    });
-
-    function toggleTask(checkbox) {
-      if (checkbox.checked) {
-        checkbox.parentElement.classList.add('line-through', 'opacity-50');
-      } else {
-        checkbox.parentElement.classList.remove('line-through', 'opacity-50');
-      }
-    }
-  </script>
 </body>
 
 </html>
