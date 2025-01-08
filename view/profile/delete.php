@@ -1,4 +1,9 @@
 <?php
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../index.php"); // Redirect ke login jika belum login
+    exit();
+}
 
 if (isset($_POST['hapus'])) {
     $id = $_POST['id'];

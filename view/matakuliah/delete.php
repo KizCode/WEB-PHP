@@ -2,11 +2,11 @@
 session_start();
 include('../../koneksi.php');
 
-// Periksa apakah pengguna sudah login dan memiliki akses
+// Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../../index.php"); 
     exit();
-}
+  }
 
 // Cek jika ID mata_kuliah ada dalam request
 if (isset($_POST['id'])) {

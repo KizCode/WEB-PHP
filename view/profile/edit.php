@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-include('../../koneksi.php');
-
-// Periksa apakah pengguna telah login
+// Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../login.php");
-    exit;
+    header("Location: ../../index.php"); // Redirect ke login jika belum login
+    exit();
 }
+include('../../koneksi.php');
 
 $user_id = $_SESSION['user_id'];
 

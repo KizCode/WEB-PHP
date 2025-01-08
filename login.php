@@ -1,10 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) == false) {
-    header("Location: index.php");
-    exit;
+
+// Periksa apakah user sudah login
+if (isset($_SESSION['user_id'])) {
+    // Redirect ke dashboard jika user mencoba mengakses halaman login setelah login
+    header("Location: ../WEB-PHP/view/dashboard/index.php");
+    exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,16 +43,16 @@ if (!isset($_SESSION['user']) == false) {
                         <!-- Email -->
                         <div class="mb-4">
                             <label for="email" class="block text-sm font-medium">Email</label>
-                            <input type="text" name="email" id="email" class="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" required>
+                            <input type="email" name="email" id="email" class="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" required>
                         </div>
 
                         <!-- Password -->
                         <div class="mb-4 relative">
                             <label for="password" class="block text-sm font-medium">Password</label>
                             <input type="password" name="password" id="password" class="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="•••••••••" required>
-                            <button type="button" id="togglePassword" class="absolute top-9 right-3 text-gray-600">
+                            <button type="button" id="togglePassword" class="absolute top-9 right-3 text-gray-600 focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m-3 9a9 9 0 1 1 6-6m3 3a9 9 0 0 1-6-6" />
                                 </svg>
                             </button>
                         </div>
@@ -77,18 +81,16 @@ if (!isset($_SESSION['user']) == false) {
         const passwordField = document.getElementById("password");
 
         togglePassword.addEventListener("click", () => {
-            // Toggle the type attribute
             const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
             passwordField.setAttribute("type", type);
 
-            // Change the icon
             togglePassword.innerHTML =
-                type === "password" ?
-                `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
-                       </svg>` :
-                `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m4-4a12 12 0 0 1-8-8m0 8a12 12 0 0 1 8-8m4 4a12 12 0 0 1-8 8m0-8a12 12 0 0 1 8 8" />
+                type === "password"
+                    ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m-3 9a9 9 0 1 1 6-6m3 3a9 9 0 0 1-6-6" />
+                       </svg>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m-3 9a9 9 0 1 1 6-6m3 3a9 9 0 0 1-6-6" />
                        </svg>`;
         });
     </script>
