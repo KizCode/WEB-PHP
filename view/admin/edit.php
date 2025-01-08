@@ -1,10 +1,10 @@
 <?php
-include '../koneksi.php';
+include '../../koneksi.php';
 session_start();
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php"); // Redirect ke login jika belum login
+    header("Location: ../../login.php"); // Redirect ke login jika belum login
     exit();
 }
 
@@ -16,8 +16,9 @@ $user = mysqli_fetch_assoc($result);
 
 // Periksa apakah user memiliki role admin
 if ($user['role_id'] !== '1') {
-    // Jika bukan admin, alihkan ke halaman lain (misalnya halaman error atau halaman utama)
-    header("Location: ../admin/index.php"); // Redirect ke halaman utama
+    // Jika bukan admin, alihkan ke halaman sebelumnya atau fallback ke halaman utama
+    $redirectUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../dashboard/index.php';
+    header("Location: " . $redirectUrl); // Redirect ke halaman sebelumnya atau utama
     exit();
 }
 

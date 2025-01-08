@@ -82,63 +82,66 @@ if ($result) {
 <body class="bg-gray-900 text-white">
     <?php include('../../utils/navbar.php'); ?>
 
-    <div class="container mx-auto ">
+    <div class="container mx-auto px-4 py-8">
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            <div class="bg-gray-700 p-4 rounded shadow">
+            <div class="bg-gray-700 p-6 rounded-lg shadow">
                 <h2 class="text-lg font-bold text-gray-200">Total User</h2>
-                <p class="text-3xl font-semibold text-red-600"><?= $total_users ?></p>
+                <p class="text-4xl font-bold text-red-500"><?= $total_users ?></p>
             </div>
-            <div class="bg-gray-700 p-4 rounded shadow">
+            <div class="bg-gray-700 p-6 rounded-lg shadow">
                 <h2 class="text-lg font-bold text-gray-200">Total Tugas</h2>
-                <p class="text-3xl font-semibold text-yellow-600"><?= $total_tugas ?></p>
+                <p class="text-4xl font-bold text-yellow-500"><?= $total_tugas ?></p>
             </div>
-            <div class="bg-gray-700 p-4 rounded shadow">
+            <div class="bg-gray-700 p-6 rounded-lg shadow">
                 <h2 class="text-lg font-bold text-gray-200">Total Mata Kuliah</h2>
-                <p class="text-3xl font-semibold text-green-600"><?= $total_mata_kuliah ?></p>
+                <p class="text-4xl font-bold text-green-500"><?= $total_mata_kuliah ?></p>
             </div>
         </section>
+
         <!-- Daftar User -->
-        <section class="bg-gray-900 p-4 sm:p-6 rounded-lg mb-6">
+        <section class="relative bg-gray-900 p-6 rounded-lg mb-6">
+            <!-- Persegi belakang -->
+            <div class="absolute top-0 left-0 w-full h-full bg-blue-900 opacity-50 rounded-lg -z-10"></div>
+
             <h1 class="text-3xl uppercase font-bold mb-6 text-start">Daftar User</h1>
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg sm:text-xl font-semibold uppercase">DAFTAR USER</h2>
-                <a href="../matakuliah/create.php" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 font-bold">Tambah Data</a>
+                <a href="../matakuliah/create.php" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-800 font-bold">Tambah Data</a>
             </div>
-            <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
-                <table class="table-auto w-full text-left border-collapse border border-gray-700">
+            <div class="overflow-x-auto bg-gray-800 p-4 rounded-lg shadow-lg">
+                <table class="table-auto w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-gray-700 text-center">
-                            <th class="px-4 py-2 border border-gray-600">No</th>
-                            <th class="px-4 py-2 border border-gray-600">Nama</th>
-                            <th class="px-4 py-2 border border-gray-600">Email</th>
-                            <th class="px-4 py-2 border border-gray-600">Username</th>
-                            <th class="px-4 py-2 border border-gray-600">Role</th>
-                            <th class="px-4 py-2 border border-gray-600">Aksi</th>
+                        <tr class="bg-blue-900 text-white">
+                            <th class="px-6 py-3 border border-gray-700">No</th>
+                            <th class="px-6 py-3 border border-gray-700">Nama</th>
+                            <th class="px-6 py-3 border border-gray-700">Email</th>
+                            <th class="px-6 py-3 border border-gray-700">Username</th>
+                            <th class="px-6 py-3 border border-gray-700">Role</th>
+                            <th class="px-6 py-3 border border-gray-700">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i = 1;
                         while ($user = mysqli_fetch_assoc($result_all_users)) { ?>
-                            <tr class="bg-gray-700 text-center">
-                                <td class="px-4 py-2 border border-gray-600"><?= $i++ ?></td>
-                                <td class="px-4 py-2 border border-gray-600"><?= ($user['name']) ?></td>
-                                <td class="px-4 py-2 border border-gray-600"><?= ($user['email']) ?></td>
-                                <td class="px-4 py-2 border border-gray-600"><?= ($user['username']) ?></td>
-                                <td class="px-4 py-2 border border-gray-600">
+                            <tr class="bg-gray-700 text-center hover:bg-gray-600">
+                                <td class="px-6 py-3 border border-gray-600"><?= $i++ ?></td>
+                                <td class="px-6 py-3 border border-gray-600"><?= ($user['name']) ?></td>
+                                <td class="px-6 py-3 border border-gray-600"><?= htmlspecialchars($user['email']) ?></td>
+                                <td class="px-6 py-3 border border-gray-600"><?= htmlspecialchars($user['username']) ?></td>
+                                <td class="px-6 py-3 border border-gray-600">
                                     <?php
                                     $role = getRoleById($conn, $user['role_id']);
                                     echo htmlspecialchars($role['name']);
                                     ?>
                                 </td>
-                                <td class="px-4 py-2 border border-gray-600 w-[200px]">
+                                <td class="px-6 py-3 border border-gray-600">
                                     <div class="flex justify-around">
                                         <!-- Tombol Edit -->
-                                        <a href="edit.php?edit=<?= $user['id_user'] ?>" class="bg-yellow-500 text-white py-1 px-4 rounded-lg hover:bg-yellow-700 font-bold">Edit</a>
-
+                                        <a href="edit.php?edit=<?= $user['id_user'] ?>" class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 font-bold">Edit</a>
                                         <!-- Tombol Delete -->
-                                        <form action="delete_user.php" method="POST" class="inline" id="deleteForm-<?= $user['id_user'] ?>">
+                                        <form action="delete_user.php" method="POST" id="deleteForm-<?= $user['id_user'] ?>" class="inline">
                                             <input type="hidden" name="id" value="<?= $user['id_user'] ?>">
-                                            <button type="button" class="bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-700 font-bold" onclick="confirmDelete(<?= $user['id_user'] ?>)">Delete</button>
+                                            <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 font-bold" onclick="confirmDelete(<?= $user['id_user'] ?>)">Delete</button>
                                         </form>
                                     </div>
                                 </td>
@@ -169,7 +172,6 @@ if ($result) {
             });
         }
     </script>
-
 </body>
 
 </html>
