@@ -104,10 +104,7 @@ if ($result) {
             <div class="absolute top-0 left-0 w-full h-full bg-blue-900 opacity-50 rounded-lg -z-10"></div>
 
             <h1 class="text-3xl uppercase font-bold mb-6 text-start">Daftar User</h1>
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-lg sm:text-xl font-semibold uppercase">DAFTAR USER</h2>
-                <a href="../matakuliah/create.php" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-800 font-bold">Tambah Data</a>
-            </div>
+
             <div class="overflow-x-auto bg-gray-800 p-4 rounded-lg shadow-lg">
                 <table class="table-auto w-full text-left border-collapse">
                     <thead>

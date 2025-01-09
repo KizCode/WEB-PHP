@@ -67,7 +67,7 @@ if (isset($_POST['update'])) {
                     <!-- Judul -->
                     <div class="flex justify-between items-center mb-4">
                         <h5 class="text-center text-2xl font-semibold">Edit Mata Kuliah</h5>
-                        <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
+                        <a href="../tugas/index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
                             &times;
                         </a>
                     </div>

@@ -107,28 +107,9 @@ if (mysqli_query($conn, $sql_post)) {
     echo "Error creating table 'post': " . mysqli_error($conn) . "<br>";
 }
 
-// Membuat tabel comment
-$sql_comment = "CREATE TABLE IF NOT EXISTS comment (
-    id_comment INT AUTO_INCREMENT PRIMARY KEY,
-    comment TEXT NOT NULL,
-    likes INT DEFAULT 0,
-    user_id INT NOT NULL,
-    parent_id INT DEFAULT NULL,
-    post_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (post_id) REFERENCES post(id_post) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (parent_id) REFERENCES comment(id_comment) ON DELETE CASCADE ON UPDATE CASCADE
-);";
-
-if (mysqli_query($conn, $sql_comment)) {
-    echo "Table 'comment' created successfully.<br>";
-} else {
-    echo "Error creating table 'comment': " . mysqli_error($conn) . "<br>";
-}
 
 // Memasukkan data awal ke tabel roles
-$default_roles = ['admin', 'user', 'editor', 'viewer'];
+$default_roles = ['admin', 'user',];
 foreach ($default_roles as $role) {
     $insert_role_sql = "INSERT INTO role (name) VALUES (?)";
     if ($stmt_role = mysqli_prepare($conn, $insert_role_sql)) {

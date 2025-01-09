@@ -14,7 +14,7 @@ $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
 // Menulis query untuk mengambil data tugas
-$sql = "SELECT * FROM tugas WHERE user_id = $user_id";
+$sql = "SELECT * FROM tugas WHERE user_id = $user_id ORDER BY created_at DESC";
 
 // Menjalankan query
 $result = $conn->query($sql);
@@ -69,7 +69,7 @@ $query_mata_kuliah = "SELECT * FROM mata_kuliah WHERE user_id = $user_id";
 $result_mata_kuliah = mysqli_query($conn, $query_mata_kuliah);
 
 // Ambil data tugas
-$query_tugas = "SELECT * FROM tugas WHERE user_id = $user_id";
+$query_tugas = "SELECT * FROM tugas WHERE user_id = $user_id ORDER BY created_at DESC";
 $result_tugas = mysqli_query($conn, $query_tugas);
 
 // Periksa apakah request valid

@@ -137,7 +137,7 @@ $result = $conn->query($sql);
     </div>
 
     <!-- Buttons -->
-    <div class="flex flex-col sm:flex-row justify-center sm:justify-start gap-4">
+    <div class="flex flex-col sm:flex-row justify-center sm:justify-center gap-4">
       <a href="edit.php" class="w-full sm:w-auto text-center bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition">Edit Profil</a>
       <a href="../dashboard/index.php" class="w-full sm:w-auto text-center bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded transition">Kembali ke Dashboard</a>
       <a href="../../delete.php" class="w-full sm:w-auto text-center bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded transition">Hapus Akun</a>
@@ -146,8 +146,5 @@ $result = $conn->query($sql);
   <!-- Footer -->
   <?php include '../../utils/footer.php'; ?>
 </body>
-
-</html>
-
 
 </html>

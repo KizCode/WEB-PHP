@@ -44,7 +44,7 @@ if (isset($_POST['create'])) {
                         <!-- Judul -->
                         <h5 class="text-center text-2xl font-semibold">Tambah Tugas</h5>
                         <!-- Tombol X -->
-                        <a href="index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
+                        <a href="../tugas/index.php" class="text-white text-lg font-bold hover:text-gray-400 transition duration-200">
                             &times;
                         </a>
                     </div>

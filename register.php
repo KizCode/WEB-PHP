@@ -1,8 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['users']) == false) {
-    header("Location: index.php");
-    $_SESSION['prev_url'] = $_SERVER['HTTP_REFERER'];
+
+// Periksa apakah user sudah login
+if (isset($_SESSION['user_id'])) {
+    // Redirect ke dashboard jika user mencoba mengakses halaman login setelah login
+    header("Location: ../WEB-PHP/view/dashboard/index.php");
+    exit();
 }
 ?>
 

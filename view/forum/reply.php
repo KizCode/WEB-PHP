@@ -2,9 +2,9 @@
 session_start();
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../index.php"); 
+    header("Location: ../../index.php");
     exit();
-  }
+}
 
 // Ambil data user dari database
 include('../../koneksi.php');
@@ -47,6 +47,31 @@ if (isset($_POST['submit'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
+// Ambil ID utas dari form
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_utas']) && is_numeric($_POST['id_utas'])) {
+    $id_utas = (int)$_POST['id_utas'];
+
+    if (isset($_POST['like'])) {
+        $stmt = $conn->prepare("UPDATE utas SET likes = likes - 1 WHERE id_utas = ?");
+        $stmt->bind_param("i", $id_utas);
+        if ($stmt->execute()) {
+            $_SESSION['liked_utas'][] = $id_utas;
+        }
+    } elseif (isset($_POST['unlike'])) {
+        $stmt = $conn->prepare("UPDATE utas SET likes = likes + 1 WHERE id_utas = ?");
+        $stmt->bind_param("i", $id_utas);
+        if ($stmt->execute()) {
+            if (($key = array_search($id_utas, $_SESSION['liked_utas'])) !== false) {
+                unset($_SESSION['liked_utas'][$key]);
+            }
+        }
+    }
+
+    // Redirect kembali ke halaman forum
+    header("Location: ./index.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +84,9 @@ if (isset($_POST['submit'])) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-[color:var(--main-color)] w-full text-gray-200 flex">
-
+<body class="bg-[color:var(--main-color)] w-full text-gray-200">
     <!-- Main Content -->
-    <main class="flex-1 mx-auto">
+    <main class="mb-auto">
         <?php include '../../utils/navbar.php'; ?>
         <div class="container mx-auto my-auto">
             <h1 class="text-3xl uppercase font-bold mb-4">Forum Diskusi</h1>
@@ -73,24 +97,6 @@ if (isset($_POST['submit'])) {
                 <p class="text-sm text-gray-100 mt-1">Ditanyakan oleh <span class="text-gray-200 font-medium"><?= $utas['username'] ?></span> pada <?= date('d M Y', strtotime($utas['created_at'])) ?></p>
                 <div class="mt-4">
                     <p><?= $utas['description'] ?></p>
-                </div>
-                <div class="mt-4 flex space-x-4 text-gray-200">
-                    <div class="mt-4 flex space-x-4 text-gray-200">
-                        <span class="flex items-center space-x-1">
-                            <!-- Icon Like menggunakan SVG Love -->
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"></path>
-                            </svg>
-                            <span><?= $utas['likes'] ?></span> <!-- Jumlah Likes -->
-                        </span>
-                        <span class="flex items-center space-x-1">
-                            <!-- Icon Comment menggunakan SVG -->
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 3H5a2 2 0 00-2 2v14l4-4h12a2 2 0 002-2V5a2 2 0 00-2-2z"></path>
-                            </svg>
-                            <span><?= $utas['total_replies'] ?></span> <!-- Jumlah Balasan -->
-                        </span>
-                    </div>
                 </div>
             </section>
 
@@ -117,7 +123,6 @@ if (isset($_POST['submit'])) {
 
             <!-- Balasan Form -->
             <form class="mt-4" method="POST">
-                <label for="comment" class="block mb-2 text-sm font-medium text-gray-900">Balasan Anda</label>
                 <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tulis balasan Anda di sini..."></textarea>
                 <button type="submit" name="submit" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow">
                     Kirim Balasan
@@ -125,10 +130,13 @@ if (isset($_POST['submit'])) {
                 <input type="hidden" name="utas_id" value="<?= $id_utas ?>">
             </form>
         </div>
-        <?php include '../../utils/footer.php'; ?>  
     </main>
 
+
     <!-- Footer -->
+    <?php include '../../utils/footer.php'; ?>
+
+
 </body>
 
 </html>

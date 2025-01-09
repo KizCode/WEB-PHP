@@ -56,16 +56,16 @@ if (isset($_POST['create'])) {
         <form method="POST" class="bg-gray-800 shadow-md rounded-lg p-6 max-w-2xl mx-auto relative">
 
             <!-- Judul Utas -->
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul Utas</label>
+            <label for="name" class="block mt-2  text-sm font-medium text-gray-900 dark:text-white">Judul Utas</label>
             <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required>
 
             <!-- Deskripsi -->
-            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
+            <label for="description" class="block mt-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
             <textarea id="description" name="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required></textarea>
 
-            <!-- Upload Gambar -->
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" name="gambar" accept=".jpg, .png, .jpeg">
+            <!-- Upload Gambar
+            <label class="block mt-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" name="gambar" accept=".jpg, .png, .jpeg"> -->
 
 
             <!-- Tombol Submit -->
