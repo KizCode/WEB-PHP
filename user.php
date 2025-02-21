@@ -24,7 +24,7 @@ class User {
     }
 
     public function create(){
-        $query =  " INSERT INTO " . $this->table_name . "SET id_user:id_user, name:name, username:username, email:email, role_id:role_id, gambar:gambar";
+        $query =  " INSERT INTO " . $this->table_name . "SET id_user:id_user, name:name, username:username, email:email, password:password, role_id:role_id, gambar:gambar";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam[":Id_user . $this->id_user"];
